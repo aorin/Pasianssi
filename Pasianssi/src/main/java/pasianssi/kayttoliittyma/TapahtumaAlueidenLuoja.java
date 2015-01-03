@@ -116,15 +116,11 @@ public class TapahtumaAlueidenLuoja {
             Korttipakka pakka = rivisto.haePakka(i);
 
             int x = pakka.getX();
-            int y;
+            int y = pakka.getY();
+            int alueenLeveys = leveys;
+            int alueenKorkeus = korkeus + KorttienSijainninPaivittaja.korttienValiRivistossa * pakka.koko();
 
-            if (pakka.koko() == 0) {
-                y = pakka.getY();
-            } else {
-                y = pakka.haePaallimmainenKortti().getY() + KorttienSijainninPaivittaja.korttienValiRivistossa;
-            }
-
-            alueet.add(new TapahtumaAlue(x, y, leveys, korkeus, pakka, null));
+            alueet.add(new TapahtumaAlue(x, y, alueenLeveys, alueenKorkeus, pakka, null));
         }
     }
 }

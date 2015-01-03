@@ -30,7 +30,8 @@ public class Kayttoliittyma implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Pasianssi");
-        frame.setPreferredSize(new Dimension(950, 730));
+        frame.setPreferredSize(new Dimension(950, 700));
+        frame.setResizable(false);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
