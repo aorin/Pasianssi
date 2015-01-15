@@ -1,2 +1,2 @@
 # Pasianssi
-Javalabra harjoitustyö. :D
+\(^o^)/
