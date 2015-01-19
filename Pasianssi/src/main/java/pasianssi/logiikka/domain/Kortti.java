@@ -18,4 +18,16 @@ public class Kortti {
     public void kaannaKorttiVaarinpain() {
         oikeinpain = false;
     }
+
+    public int getArvo() {
+        return arvo;
+    }
+
+    public Maa getMaa() {
+        return maa;
+    }
+    
+    public boolean oikeinPain() {
+        return oikeinpain;
+    }
 }
