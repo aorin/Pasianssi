@@ -28,7 +28,7 @@ public class Korttienjakaja {
             }
         }
         
-        Collections.shuffle(korttipakka.getKorttipakka());
+        Collections.shuffle(korttipakka.listaKorteista());
     }
 
     private void lisaaOsaKorteistaRiveihin() {
@@ -49,7 +49,7 @@ public class Korttienjakaja {
                 }
             }
             
-            pelialusta.lisaaKorttirivi(korttirivi);
+            pelialusta.getKorttirivisto().lisaaRivi(korttirivi);
             rivinKoko--;
         }
     }

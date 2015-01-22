@@ -26,7 +26,7 @@ public class Korttipakka {
         return korttipakka.get(indeksi);
     }
 
-    public List<Kortti> getKorttipakka() {
+    public List<Kortti> listaKorteista() {
         return korttipakka;
     }
 }

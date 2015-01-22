@@ -5,12 +5,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class PelialustaTest {
-    private Kortti kortti;
+    private Pelialusta pelialusta;
+    private Korttirivi korttirivi;
     
     public PelialustaTest() {
     }
 
     @Before
     public void setUp() {
+        
     }
 }

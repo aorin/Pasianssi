@@ -1,8 +1,5 @@
 package pasianssi.logiikka.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Pelialusta {
     private Korttirivisto korttirivisto;
     private Korttipakka korttipakka;
@@ -16,9 +13,9 @@ public class Pelialusta {
         this.pakka3 = new KorttipakkaMaittainJaJarjestyksessa();
         this.pakka4 = new KorttipakkaMaittainJaJarjestyksessa();
     }
-    
-    public void lisaaKorttirivi(Korttirivi rivi) {
-        korttirivisto.lisaaRivi(rivi);
+
+    public Korttirivisto getKorttirivisto() {
+        return korttirivisto;
     }
 
     public Korttipakka getKorttipakka() {

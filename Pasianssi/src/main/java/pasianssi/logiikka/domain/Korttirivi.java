@@ -16,5 +16,12 @@ public class Korttirivi {
     public void lisaaVaarinPainOlevaKortti(Kortti kortti) {
         vaarinpainOlevatKortit.lisaaKortti(kortti);
     }
-    
+
+    public Korttipakka getOikeinpainOlevatKortit() {
+        return oikeinpainOlevatKortit;
+    }
+
+    public Korttipakka getVaarinpainOlevatKortit() {
+        return vaarinpainOlevatKortit;
+    }
 }
