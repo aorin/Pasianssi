@@ -15,8 +15,13 @@ public class KorttirivistoTest {
     public void setUp() {
         this.korttirivisto = new Korttirivisto();
         this.korttirivi = new Korttirivi();
-        korttirivi.lisaaVaarinPainOlevaKortti(new Kortti(Maa.RISTI, 10));
-        korttirivi.lisaaOikeinPainOlevaKortti(new Kortti(Maa.RUUTU, 12));
+        
+        Kortti kortti1 = new Kortti(Maa.RISTI, 10);
+        Kortti kortti2 = new Kortti(Maa.RUUTU, 12);
+        kortti2.kaannaKorttiOikeinpain();
+        
+        korttirivi.lisaaKortti(kortti1);
+        korttirivi.lisaaKortti(kortti2);
     }
     
     @Test

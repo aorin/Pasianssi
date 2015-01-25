@@ -15,5 +15,8 @@ public class Sovellus {
     public void kaynnista() {
         jakaja.jaaKortit();
     }
-    
+
+    public Pelialusta getPelialusta() {
+        return pelialusta;
+    }
 }

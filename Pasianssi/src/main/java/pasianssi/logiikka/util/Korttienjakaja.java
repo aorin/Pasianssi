@@ -43,10 +43,10 @@ public class Korttienjakaja {
                 korttipakka.poistaKortti(arvottuKortti);
                 
                 if (i == rivinKoko) {
-                    korttirivi.lisaaOikeinPainOlevaKortti(arvottuKortti);
-                } else {
-                    korttirivi.lisaaVaarinPainOlevaKortti(arvottuKortti);
+                    arvottuKortti.kaannaKorttiOikeinpain();
                 }
+                
+                korttirivi.lisaaKortti(arvottuKortti);
             }
             
             pelialusta.getKorttirivisto().lisaaRivi(korttirivi);

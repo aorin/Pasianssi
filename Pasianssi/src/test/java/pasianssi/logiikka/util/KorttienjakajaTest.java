@@ -53,18 +53,8 @@ public class KorttienjakajaTest {
     }
     
     @Test
-    public void rivistonEnsimmaisessaRivissaOnKuusiVaarinpainOlevaaKorttia() {
-        assertEquals(6, rivisto.haeRivi(0).getVaarinpainOlevatKortit().pakanKoko());
-    }
-    
-    @Test
-    public void rivistonViimeisessaRivissaEiVaarinpainOleviaKortteja() {
-        assertEquals(0, rivisto.haeRivi(6).getVaarinpainOlevatKortit().pakanKoko());
-    }
-    
-    @Test
-    public void rivistonViimeisessaRivissaOnYksiOikeinpainOlevaKortti() {
-        assertEquals(1, rivisto.haeRivi(6).getOikeinpainOlevatKortit().pakanKoko());
+    public void rivistonViimeisessaRivissaOnYksiKortti() {
+        assertEquals(1, rivisto.haeRivi(6).getKortit().pakanKoko());
     }
     
     @Test

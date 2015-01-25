@@ -13,3 +13,7 @@
   * lisää testejä ja testiluokkia
   * alustava luokkakaavio
   * ensimmäisen pit-raportin generoiminen
+
+**25.1.2015, 2.5h**
+  * alustava käyttöliittymä
+  * refaktorointia

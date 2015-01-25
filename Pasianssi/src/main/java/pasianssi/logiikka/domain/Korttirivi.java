@@ -1,27 +1,17 @@
 package pasianssi.logiikka.domain;
 
 public class Korttirivi {
-    private Korttipakka vaarinpainOlevatKortit, oikeinpainOlevatKortit;
+    private Korttipakka kortit;
 
     public Korttirivi() {
-        this.oikeinpainOlevatKortit = new Korttipakka();
-        this.vaarinpainOlevatKortit = new Korttipakka();
+        this.kortit = new Korttipakka();
     }
     
-    public void lisaaOikeinPainOlevaKortti(Kortti kortti) {
-        kortti.kaannaKorttiOikeinpain();
-        oikeinpainOlevatKortit.lisaaKortti(kortti);
-    }
-    
-    public void lisaaVaarinPainOlevaKortti(Kortti kortti) {
-        vaarinpainOlevatKortit.lisaaKortti(kortti);
+    public void lisaaKortti(Kortti kortti) {
+        this.kortit.lisaaKortti(kortti);
     }
 
-    public Korttipakka getOikeinpainOlevatKortit() {
-        return oikeinpainOlevatKortit;
-    }
-
-    public Korttipakka getVaarinpainOlevatKortit() {
-        return vaarinpainOlevatKortit;
+    public Korttipakka getKortit() {
+        return kortit;
     }
 }
