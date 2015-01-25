@@ -49,7 +49,7 @@ public class Piirtaja extends JPanel {
     }
     
     private void piirraKorttirivi(Korttirivi rivi, Graphics g, int x, int y) {
-        for (Kortti kortti : rivi.getKortit().listaKorteista()) {
+        for (Kortti kortti : rivi.listaKorteista()) {
             piirraKortti(kortti, g, x, y);
             y += 10;
         }

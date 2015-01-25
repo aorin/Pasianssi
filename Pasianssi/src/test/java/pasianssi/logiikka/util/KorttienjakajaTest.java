@@ -54,7 +54,7 @@ public class KorttienjakajaTest {
     
     @Test
     public void rivistonViimeisessaRivissaOnYksiKortti() {
-        assertEquals(1, rivisto.haeRivi(6).getKortit().pakanKoko());
+        assertEquals(1, rivisto.haeRivi(6).pakanKoko());
     }
     
     @Test

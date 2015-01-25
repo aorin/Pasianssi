@@ -20,7 +20,7 @@ public class KorttiriviTest {
     @Test
     public void lisaaYhdenKortin() {
         korttirivi.lisaaKortti(kortti);
-        assertEquals(kortti, korttirivi.getKortit().haeKortti(0));
+        assertEquals(kortti, korttirivi.haeKortti(0));
     }
 }
 

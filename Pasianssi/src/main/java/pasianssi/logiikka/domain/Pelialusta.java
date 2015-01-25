@@ -3,15 +3,12 @@ package pasianssi.logiikka.domain;
 public class Pelialusta {
     private Korttirivisto korttirivisto;
     private Korttipakka korttipakka;
-    private KorttipakkaMaittainJaJarjestyksessa pakka1, pakka2, pakka3, pakka4;
+    private TavoiteRivi tavoitePakat;
 
     public Pelialusta() {
         this.korttipakka = new Korttipakka();
         this.korttirivisto = new Korttirivisto();
-        this.pakka1 = new KorttipakkaMaittainJaJarjestyksessa();
-        this.pakka2 = new KorttipakkaMaittainJaJarjestyksessa();
-        this.pakka3 = new KorttipakkaMaittainJaJarjestyksessa();
-        this.pakka4 = new KorttipakkaMaittainJaJarjestyksessa();
+        this.tavoitePakat = new TavoiteRivi();
     }
 
     public Korttirivisto getKorttirivisto() {
@@ -20,5 +17,9 @@ public class Pelialusta {
 
     public Korttipakka getKorttipakka() {
         return korttipakka;
+    }
+
+    public TavoiteRivi getTavoitePakat() {
+        return tavoitePakat;
     }
 }
