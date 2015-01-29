@@ -15,7 +15,7 @@
   * ensimmäisen pit-raportin generoiminen
 
 **25.1.2015, 2.5h**
-  * alustava käyttöliittymä
+  * korttien grafiikan muokkaaminen, alustava käyttöliittymä
   * refaktorointia
 
 **29.1.2015, 2.5h**
