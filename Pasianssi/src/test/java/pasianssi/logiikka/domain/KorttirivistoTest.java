@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class KorttirivistoTest {
     private Korttirivisto korttirivisto;
-    private Korttirivi korttirivi;
+    private KorttipakkaVuoroVareinJaJarjestyksessa korttirivi;
     
     public KorttirivistoTest() {
     }
@@ -14,7 +14,7 @@ public class KorttirivistoTest {
     @Before
     public void setUp() {
         this.korttirivisto = new Korttirivisto();
-        this.korttirivi = new Korttirivi();
+        this.korttirivi = new KorttipakkaVuoroVareinJaJarjestyksessa();
         
         Kortti kortti1 = new Kortti(Maa.RISTI, 10);
         Kortti kortti2 = new Kortti(Maa.RUUTU, 12);
@@ -28,5 +28,15 @@ public class KorttirivistoTest {
     public void lisaaYhdenRivin() {
         korttirivisto.lisaaRivi(korttirivi);
         assertEquals(korttirivi, korttirivisto.haeRivi(0));
+    }
+    
+    @Test
+    public void palauttaaOikeanKoon() {
+        korttirivisto.lisaaRivi(korttirivi);
+        korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
+        korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
+        korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
+        
+        assertEquals(4, korttirivisto.koko());
     }
 }

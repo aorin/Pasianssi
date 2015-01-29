@@ -14,6 +14,7 @@ public class KorttienjakajaTest {
     private Pelialusta pelialusta;
     private Korttipakka pakka;
     private Korttirivisto rivisto;
+    private Korttirivisto tavoiterivisto;
 
     public KorttienjakajaTest() {
     }
@@ -24,6 +25,7 @@ public class KorttienjakajaTest {
         this.jakaja = new Korttienjakaja(pelialusta);
         this.pakka = pelialusta.getKorttipakka();
         this.rivisto = pelialusta.getKorttirivisto();
+        this.tavoiterivisto = pelialusta.getTavoiterivisto();
         
         jakaja.jaaKortit();
     }
@@ -58,15 +60,19 @@ public class KorttienjakajaTest {
     }
     
     @Test
-    public void rivistossaEiEnemmanKuinSeitsemanRivia() {
-        boolean eiYlimaaraisiaRiveja = false;
+    public void rivistonViimeinenKorttiOnOikeinpain() {
+        Kortti kortti = rivisto.haeRivi(0).haeKortti(6);
         
-        try {
-            rivisto.haeRivi(7);
-        } catch (Exception e) {
-            eiYlimaaraisiaRiveja = true;
-        }
-        
-        assertTrue(eiYlimaaraisiaRiveja);
+        assertTrue(kortti.oikeinPain());
+    }
+    
+    @Test
+    public void rivistossaSeitsemanRivia() {
+        assertEquals(7, rivisto.koko());
+    }
+    
+    @Test
+    public void luoTavoiteRiviinNeljaPakkaa() {
+        assertEquals(4, tavoiterivisto.koko());
     }
 }

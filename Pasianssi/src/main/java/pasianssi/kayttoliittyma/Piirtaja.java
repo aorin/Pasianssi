@@ -3,7 +3,11 @@ package pasianssi.kayttoliittyma;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pasianssi.logiikka.domain.*;
@@ -11,8 +15,9 @@ import pasianssi.logiikka.domain.*;
 public class Piirtaja extends JPanel {
 
     private Pelialusta pelialusta;
-    private Image kuvaKorteista;
+    private List<KorttiKuva> kuvatKorteista;
     private int kortinLeveys, kortinKorkeus;
+    private BufferedImage kuvaPohja;
 
     public Piirtaja(Pelialusta alusta) {
         super.setBackground(new Color(28, 63, 126));
@@ -21,53 +26,71 @@ public class Piirtaja extends JPanel {
         this.kortinKorkeus = 172;
         
         this.pelialusta = alusta;
+        this.kuvatKorteista = new ArrayList<>();
         
         try {
             File kuva = new File("./korttipohja.png");
-            kuvaKorteista = ImageIO.read(kuva);
-        } catch (Exception e) {
+            kuvaPohja = ImageIO.read(kuva);
+        } catch (IOException e) {
             System.out.println("Kuvatiedoston lukeminen ei onnistunut.");
         }
+        
+        luoKaikkienKorttienKuvat();
+    }
+    
+    private void luoKaikkienKorttienKuvat() {
+        luoKorttirivistonKuvat(pelialusta.getKorttirivisto(), 10, 10);
+        
+        luoKorttirivistonKuvat(pelialusta.getTavoiterivisto(), 400, 400);
+        
+        luoKorttipakanKuvat(pelialusta.getKorttipakka(), 10, 400);
+    }
+    
+    private void luoKorttirivistonKuvat(Korttirivisto rivisto, int x, int y) {
+        for (int i = 0; i < rivisto.koko(); i++) {
+            luoKorttipakanKuvat(rivisto.haeRivi(i), x, y);
+            x += kortinLeveys + 10;
+        }
+    }
+    
+    private void luoKorttipakanKuvat(Korttipakka pakka, int x, int y) {
+        for (Kortti kortti : pakka.listaKorteista()) {
+            luoKuva(kortti, x, y);
+            
+            if (pakka instanceof KorttipakkaVuoroVareinJaJarjestyksessa) {
+                y += 10;
+            }
+        }
+    }
+    
+    private void luoKuva(Kortti kortti, int xSijainti, int ySijainti) {
+        int y;
+        int x;
+
+        if (!kortti.oikeinPain()) {
+            y = 0;
+            x = kortinLeveys * 13;
+        } else {
+            y = kortti.getMaa().getArvo() * kortinKorkeus;
+            x = (kortti.getArvo() - 1) * kortinLeveys;
+        }
+        
+        Image kuva = kuvaPohja.getSubimage(x, y, kortinLeveys, kortinKorkeus);
+        
+        this.kuvatKorteista.add(new KorttiKuva(kuva, xSijainti, ySijainti, kortti));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        piirraKorttirivisto(pelialusta.getKorttirivisto(), g, 10, 10);
-                
-                
+        for (KorttiKuva kuva : kuvatKorteista) {
+            piirraKuva(g, kuva);
+        }
     }
     
-    private void piirraKorttirivisto(Korttirivisto rivisto, Graphics g, int x, int y) {
-        for (int i = 0; i < 7; i++) {
-            Korttirivi rivi = rivisto.haeRivi(i);
-            piirraKorttirivi(rivi, g, x, y);
-            x += kortinLeveys + 5;
-        }
-        
-    }
-    
-    private void piirraKorttirivi(Korttirivi rivi, Graphics g, int x, int y) {
-        for (Kortti kortti : rivi.listaKorteista()) {
-            piirraKortti(kortti, g, x, y);
-            y += 10;
-        }
-    }
-
-    private void piirraKortti(Kortti kortti, Graphics g, int x, int y) {
-        int yAlku;
-        int xAlku;
-
-        if (!kortti.oikeinPain()) {
-            yAlku = 0;
-            xAlku = kortinLeveys * 13;
-        } else {
-            yAlku = kortti.getMaa().getArvo() * kortinKorkeus;
-            xAlku = (kortti.getArvo() - 1) * kortinLeveys;
-        }
-
-        g.drawImage(kuvaKorteista, x, y, kortinLeveys + x, kortinKorkeus + y, xAlku, yAlku, kortinLeveys + xAlku, kortinKorkeus + yAlku, null);
+    private void piirraKuva(Graphics g, KorttiKuva kuva) {
+        g.drawImage(kuva.getKuva(), kuva.getX(), kuva.getY(), this);
     }
     
     private void piirraTyhja(Graphics g, int x, int y) {

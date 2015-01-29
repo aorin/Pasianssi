@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class PelialustaTest {
     private Pelialusta pelialusta;
-    private Korttirivi korttirivi;
+    private KorttipakkaVuoroVareinJaJarjestyksessa korttirivi;
     
     public PelialustaTest() {
     }

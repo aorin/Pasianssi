@@ -1,8 +1,8 @@
 package pasianssi.logiikka.domain;
 
-public class Korttirivi extends Korttipakka {
+public class KorttipakkaVuoroVareinJaJarjestyksessa extends Korttipakka {
 
-    public Korttirivi() {
+    public KorttipakkaVuoroVareinJaJarjestyksessa() {
     }
     
     @Override

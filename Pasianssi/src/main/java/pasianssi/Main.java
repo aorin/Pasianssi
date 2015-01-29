@@ -3,7 +3,6 @@ package pasianssi;
 import javax.swing.SwingUtilities;
 import pasianssi.kayttoliittyma.Kayttoliittyma;
 import pasianssi.logiikka.Sovellus;
-import pasianssi.logiikka.Sovellus;
 
 public class Main {
     

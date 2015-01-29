@@ -19,6 +19,8 @@ public class Korttienjakaja {
         luoKortit();
 
         lisaaOsaKorteistaRiveihin();
+        
+        luoTyhjatTavoitePakat();
     }
 
     private void luoKortit() {
@@ -35,7 +37,7 @@ public class Korttienjakaja {
         int rivinKoko = 7;
 
         while (rivinKoko > 0) {
-            Korttirivi korttirivi = new Korttirivi();
+            KorttipakkaVuoroVareinJaJarjestyksessa korttirivi = new KorttipakkaVuoroVareinJaJarjestyksessa();
 
             for (int i = 1; i <= rivinKoko; i++) {
                 Kortti arvottuKortti = arpoja.arvoKortti(korttipakka);
@@ -51,6 +53,14 @@ public class Korttienjakaja {
             
             pelialusta.getKorttirivisto().lisaaRivi(korttirivi);
             rivinKoko--;
+        }
+    }
+    
+    private void luoTyhjatTavoitePakat() {
+        Korttirivisto tavoiterivi = pelialusta.getTavoiterivisto();
+        
+        for (int i = 0; i < 4; i++) {
+            tavoiterivi.lisaaRivi(new KorttipakkaMaittainJaJarjestyksessa());
         }
     }
 }
