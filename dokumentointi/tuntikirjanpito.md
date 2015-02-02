@@ -21,3 +21,6 @@
 **29.1.2015, 2.5h**
   * refaktorointia, lisää testejä
   * uusi luokkakaavio ja pit
+
+**2.2.2015, 1h**
+  * aloitettu luokan hiirenKuuntelija toteutus

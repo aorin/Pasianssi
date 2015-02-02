@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import pasianssi.logiikka.domain.*;
 public class Piirtaja extends JPanel {
 
     private Pelialusta pelialusta;
-    private List<KorttiKuva> kuvatKorteista;
+    private List<Korttikuva> kuvatKorteista;
     private int kortinLeveys, kortinKorkeus;
     private BufferedImage kuvaPohja;
 
@@ -36,6 +37,10 @@ public class Piirtaja extends JPanel {
         }
         
         luoKaikkienKorttienKuvat();
+        
+        HiirenKuuntelija kuuntelija = new HiirenKuuntelija(this, this.kuvatKorteista, this.pelialusta);
+        this.addMouseListener(kuuntelija);
+        this.addMouseMotionListener(kuuntelija);
     }
     
     private void luoKaikkienKorttienKuvat() {
@@ -77,19 +82,21 @@ public class Piirtaja extends JPanel {
         
         Image kuva = kuvaPohja.getSubimage(x, y, kortinLeveys, kortinKorkeus);
         
-        this.kuvatKorteista.add(new KorttiKuva(kuva, xSijainti, ySijainti, kortti));
+        this.kuvatKorteista.add(new Korttikuva(kuva, xSijainti, ySijainti, kortti));
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
-        for (KorttiKuva kuva : kuvatKorteista) {
+        Collections.sort(kuvatKorteista);
+
+        for (Korttikuva kuva : kuvatKorteista) {
             piirraKuva(g, kuva);
         }
     }
     
-    private void piirraKuva(Graphics g, KorttiKuva kuva) {
+    private void piirraKuva(Graphics g, Korttikuva kuva) {
         g.drawImage(kuva.getKuva(), kuva.getX(), kuva.getY(), this);
     }
     
