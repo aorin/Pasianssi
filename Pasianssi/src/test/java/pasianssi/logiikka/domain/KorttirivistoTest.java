@@ -27,7 +27,7 @@ public class KorttirivistoTest {
     @Test
     public void lisaaYhdenRivin() {
         korttirivisto.lisaaRivi(korttirivi);
-        assertEquals(korttirivi, korttirivisto.haeRivi(0));
+        assertEquals(korttirivi, korttirivisto.haePakka(0));
     }
     
     @Test

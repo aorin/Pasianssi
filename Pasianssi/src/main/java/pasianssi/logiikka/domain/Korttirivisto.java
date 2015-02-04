@@ -12,10 +12,15 @@ public class Korttirivisto {
     
     public void lisaaRivi(Korttipakka rivi) {
         korttirivisto.add(rivi);
+        rivi.setSijainti(this);
     }
     
-    public Korttipakka haeRivi(int indeksi) {
+    public Korttipakka haePakka(int indeksi) {
         return korttirivisto.get(indeksi);
+    }
+    
+    public int haeIndeksi(Korttipakka pakka) {
+        return korttirivisto.indexOf(pakka);
     }
     
     public int koko() {

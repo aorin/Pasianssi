@@ -6,10 +6,26 @@ public class KorttipakkaVuoroVareinJaJarjestyksessa extends Korttipakka {
     }
     
     @Override
-    public void lisaaKortti(Kortti kortti) {
+    public boolean lisaaKortti(Kortti kortti) {
         if (kaySeuraavaksi(kortti)) {
-            super.lisaaKortti(kortti);
-        }  
+            return super.lisaaKortti(kortti);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean poistaKortti(Kortti kortti) {
+        if (kortti.oikeinPain()) {
+            int i = haeIndeksi(kortti);
+            
+            for (int j = pakanKoko() - 1; i <= i; i--) {
+                super.poistaKortti(kortti);
+            }
+            
+            return true;
+        }
+        
+        return false;
     }
     
     private boolean kaySeuraavaksi(Kortti kortti) {
@@ -17,7 +33,7 @@ public class KorttipakkaVuoroVareinJaJarjestyksessa extends Korttipakka {
             return true;
         }
         
-        Kortti edellinenKortti = this.haeKortti(this.pakanKoko() - 1);
+        Kortti edellinenKortti = this.haeKortti(pakanKoko() - 1);
         
         if (!edellinenKortti.oikeinPain()) {
             return true;

@@ -3,10 +3,16 @@ package pasianssi.logiikka.domain;
 public class KorttipakkaMaittainJaJarjestyksessa extends Korttipakka {
 
     @Override
-    public void lisaaKortti(Kortti kortti) {
+    public boolean lisaaKortti(Kortti kortti) {
         if (onJarjestyksessaSeuraavaKortti(kortti) || kayPakanEnsimmaiseksiKortiksi(kortti)) {
-            super.lisaaKortti(kortti);
+            return super.lisaaKortti(kortti);
         }
+        return false;
+    }
+
+    @Override
+    public boolean poistaKortti(Kortti kortti) {
+        return false;
     }
 
     private boolean onJarjestyksessaSeuraavaKortti(Kortti kortti) {

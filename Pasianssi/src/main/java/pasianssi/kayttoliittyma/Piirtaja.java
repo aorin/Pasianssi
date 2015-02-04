@@ -2,14 +2,9 @@ package pasianssi.kayttoliittyma;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.Rectangle;
 import java.util.Collections;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import pasianssi.logiikka.domain.*;
 
@@ -17,92 +12,44 @@ public class Piirtaja extends JPanel {
 
     private Pelialusta pelialusta;
     private List<Korttikuva> kuvatKorteista;
-    private int kortinLeveys, kortinKorkeus;
-    private BufferedImage kuvaPohja;
+    private List<Rectangle> pohjaSuorakulmiot;
 
-    public Piirtaja(Pelialusta alusta) {
+    public Piirtaja(Pelialusta alusta, List<Korttikuva> listaKuvista, List<Rectangle> pohjaSuorakulmiot) {
         super.setBackground(new Color(28, 63, 126));
-
-        this.kortinLeveys = 121;
-        this.kortinKorkeus = 172;
         
         this.pelialusta = alusta;
-        this.kuvatKorteista = new ArrayList<>();
-        
-        try {
-            File kuva = new File("./korttipohja.png");
-            kuvaPohja = ImageIO.read(kuva);
-        } catch (IOException e) {
-            System.out.println("Kuvatiedoston lukeminen ei onnistunut.");
-        }
-        
-        luoKaikkienKorttienKuvat();
-        
-        HiirenKuuntelija kuuntelija = new HiirenKuuntelija(this, this.kuvatKorteista, this.pelialusta);
-        this.addMouseListener(kuuntelija);
-        this.addMouseMotionListener(kuuntelija);
+        this.kuvatKorteista = listaKuvista;
+        this.pohjaSuorakulmiot = pohjaSuorakulmiot;
     }
     
-    private void luoKaikkienKorttienKuvat() {
-        luoKorttirivistonKuvat(pelialusta.getKorttirivisto(), 10, 10);
-        
-        luoKorttirivistonKuvat(pelialusta.getTavoiterivisto(), 400, 400);
-        
-        luoKorttipakanKuvat(pelialusta.getKorttipakka(), 10, 400);
-    }
-    
-    private void luoKorttirivistonKuvat(Korttirivisto rivisto, int x, int y) {
-        for (int i = 0; i < rivisto.koko(); i++) {
-            luoKorttipakanKuvat(rivisto.haeRivi(i), x, y);
-            x += kortinLeveys + 10;
-        }
-    }
-    
-    private void luoKorttipakanKuvat(Korttipakka pakka, int x, int y) {
-        for (Kortti kortti : pakka.listaKorteista()) {
-            luoKuva(kortti, x, y);
-            
-            if (pakka instanceof KorttipakkaVuoroVareinJaJarjestyksessa) {
-                y += 10;
-            }
-        }
-    }
-    
-    private void luoKuva(Kortti kortti, int xSijainti, int ySijainti) {
-        int y;
-        int x;
 
-        if (!kortti.oikeinPain()) {
-            y = 0;
-            x = kortinLeveys * 13;
-        } else {
-            y = kortti.getMaa().getArvo() * kortinKorkeus;
-            x = (kortti.getArvo() - 1) * kortinLeveys;
-        }
-        
-        Image kuva = kuvaPohja.getSubimage(x, y, kortinLeveys, kortinKorkeus);
-        
-        this.kuvatKorteista.add(new Korttikuva(kuva, xSijainti, ySijainti, kortti));
-    }
+    
+
+    
+  
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         
         Collections.sort(kuvatKorteista);
-
+        
+        for (Rectangle suorakulmio : pohjaSuorakulmiot) {
+            piirraSuorakulmio(g, suorakulmio);
+        }
+        
         for (Korttikuva kuva : kuvatKorteista) {
-            piirraKuva(g, kuva);
+            piirraKorttikuva(g, kuva);
         }
     }
     
-    private void piirraKuva(Graphics g, Korttikuva kuva) {
-        g.drawImage(kuva.getKuva(), kuva.getX(), kuva.getY(), this);
+    private void piirraKorttikuva(Graphics g, Korttikuva kuva) {
+        g.drawImage(kuva.getKuva(), (int) kuva.getX(), (int) kuva.getY(), this);
     }
     
-    private void piirraTyhja(Graphics g, int x, int y) {
+    private void piirraSuorakulmio(Graphics g, Rectangle suorakulmio) {
         g.setColor(new Color(28, 40, 126));
         
-        g.fillRect(x, y, kortinLeveys, kortinKorkeus);
+        g.fillRect(suorakulmio.x, suorakulmio.y, suorakulmio.width, suorakulmio.height);
     }
 }

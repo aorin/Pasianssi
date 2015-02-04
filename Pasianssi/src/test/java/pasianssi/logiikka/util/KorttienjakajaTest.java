@@ -56,12 +56,12 @@ public class KorttienjakajaTest {
     
     @Test
     public void rivistonViimeisessaRivissaOnYksiKortti() {
-        assertEquals(1, rivisto.haeRivi(6).pakanKoko());
+        assertEquals(1, rivisto.haePakka(6).pakanKoko());
     }
     
     @Test
     public void rivistonViimeinenKorttiOnOikeinpain() {
-        Kortti kortti = rivisto.haeRivi(0).haeKortti(6);
+        Kortti kortti = rivisto.haePakka(0).haeKortti(6);
         
         assertTrue(kortti.oikeinPain());
     }

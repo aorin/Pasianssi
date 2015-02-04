@@ -2,6 +2,8 @@ package pasianssi.kayttoliittyma;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import pasianssi.logiikka.domain.Pelialusta;
@@ -28,7 +30,17 @@ public class Kayttoliittyma implements Runnable {
     }
 
     private void luoKomponentit(Container container) {
-        Piirtaja piirtoalusta = new Piirtaja(pelialusta);
+        KuvienSijainninPaivittaja sijainninPaivittaja = new KuvienSijainninPaivittaja();
+        KuvienLuoja luoja = new KuvienLuoja(pelialusta, sijainninPaivittaja);
+        
+        List<Korttikuva> kuvat = luoja.luoKaikkiKorttikuvat();
+        List<Rectangle> suorakulmiot = luoja.luoSuorakulmiot();
+        Piirtaja piirtoalusta = new Piirtaja(pelialusta, kuvat, suorakulmiot); 
+        
+        HiirenKuuntelija kuuntelija = new HiirenKuuntelija(piirtoalusta, kuvat, pelialusta, sijainninPaivittaja);
+        piirtoalusta.addMouseListener(kuuntelija);
+        piirtoalusta.addMouseMotionListener(kuuntelija);
+        
         container.add(piirtoalusta);
     }
 

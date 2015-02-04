@@ -1,40 +1,38 @@
 package pasianssi.kayttoliittyma;
 
-import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
+import java.awt.Rectangle;
 import pasianssi.logiikka.domain.Kortti;
 
-public class Korttikuva extends Image implements Comparable<Korttikuva> {
-    private int x;
-    private int y;
+public class Korttikuva extends Rectangle implements Comparable<Korttikuva> {
     private Kortti kortti;
+    private Image oikeinPainkuva;
+    private Image vaarinPainKuva;
     private Image kuva;
     private boolean siirrettavana;
 
-    public Korttikuva(Image kuva, int x, int y, Kortti kortti) {
-        this.kuva = kuva;
-        this.x = x;
-        this.y = y;
+    public Korttikuva(int x, int y, int leveys, int korkeus, Image oikeinpain, Image vaarinpain, Kortti kortti) {
+        super(x, y, leveys, korkeus);
+        this.oikeinPainkuva = oikeinpain;
+        this.vaarinPainKuva = vaarinpain;
         this.kortti = kortti;
         this.siirrettavana = false;
+        
+        if (!kortti.oikeinPain()) {
+            this.kuva = vaarinpain;
+        } else {
+            this.kuva = oikeinpain;
+        }
     }
     
-    public void setX(int x) {
-        this.x = x;
+    public void kaannaKorttiOikeinpain() {
+        kortti.kaannaKorttiOikeinpain();
+        kuva = oikeinPainkuva;
     }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    
+    public void kaannaKorttiVaarinpain() {
+        kortti.kaannaKorttiVaarinpain();
+        kuva = vaarinPainKuva;
     }
 
     public Image getKuva() {
@@ -51,31 +49,6 @@ public class Korttikuva extends Image implements Comparable<Korttikuva> {
 
     public void setSiirrettavana(boolean siirrettavana) {
         this.siirrettavana = siirrettavana;
-    }
-    
-    @Override
-    public int getWidth(ImageObserver io) {
-        return kuva.getWidth(io);
-    }
-
-    @Override
-    public int getHeight(ImageObserver io) {
-        return kuva.getHeight(io);
-    }
-
-    @Override
-    public ImageProducer getSource() {
-        return kuva.getSource();
-    }
-
-    @Override
-    public Graphics getGraphics() {
-        return kuva.getGraphics();
-    }
-
-    @Override
-    public Object getProperty(String string, ImageObserver io) {
-        return kuva.getProperty(string, io);
     }
 
     @Override
@@ -96,6 +69,6 @@ public class Korttikuva extends Image implements Comparable<Korttikuva> {
             }
         }  
         
-        return this.getY() - k.getY();
+        return (int) (this.getY() - k.getY());
     }
 }

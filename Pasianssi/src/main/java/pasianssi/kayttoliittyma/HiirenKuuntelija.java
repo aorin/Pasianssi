@@ -1,6 +1,7 @@
 package pasianssi.kayttoliittyma;
 
 import java.awt.Component;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.event.MouseInputAdapter;
@@ -10,23 +11,28 @@ public class HiirenKuuntelija extends MouseInputAdapter {
 
     private Pelialusta pelilauta;
     private Component piirtaja;
+    private KuvienSijainninPaivittaja sijainninPaivittaja;
     private Korttikuva siirrettava;
     private List<Korttikuva> listaKorttikuvista;
     private int tarttumaKohtaX, tarttumaKohtaY;
+    private int lahtoX, lahtoY;
 
-    public HiirenKuuntelija(Component piirtaja, List<Korttikuva> lista, Pelialusta lauta) {
+    public HiirenKuuntelija(Component piirtaja, List<Korttikuva> lista, Pelialusta lauta, KuvienSijainninPaivittaja paivittaja) {
         this.pelilauta = lauta;
         this.piirtaja = piirtaja;
+        this.sijainninPaivittaja = paivittaja;
         this.siirrettava = null;
         this.listaKorttikuvista = lista;
         this.tarttumaKohtaX = 0;
         this.tarttumaKohtaY = 0;
+        this.lahtoX = 0;
+        this.lahtoY = 0;
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
         siirrettava = klikattuKuva(e);
-        
+
         if (siirrettava != null) {
             siirrettava.setSiirrettavana(true);
         }
@@ -34,50 +40,76 @@ public class HiirenKuuntelija extends MouseInputAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (siirrettava != null) {
-            siirrettava.setSiirrettavana(false);
+        if (siirrettava == null) {
+            return;
         }
 
         Korttikuva kuva = klikattuKuva(e);
-        int x = e.getX();
 
-        if (kuva != null && kuva.getKortti().oikeinPain()) {
-            //lisaa riviin, jos onnistuu
+        if (kuva != null && kuva.getKortti().getSijainti().lisaaKortti(siirrettava.getKortti())) {
+                System.out.println("aaa");
+                sijainninPaivittaja.paivitaSijainti(siirrettava);
+        } else {
+                siirrettava.x = lahtoX;
+                siirrettava.y = lahtoY;
+
         }
 
+        siirrettava.setSiirrettavana(false);
+
         siirrettava = null;
+        piirtaja.repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        //korttien kaantaminen?
+        Korttikuva klikattu = klikattuKuva(e);
+        if (klikattu != null && !klikattu.getKortti().oikeinPain()) {
+            klikattu.kaannaKorttiOikeinpain();
+        }
+
+        piirtaja.repaint();
     }
 
     @Override
     public void mouseDragged(MouseEvent me) {
         if (siirrettava != null) {
-            siirrettava.setX(me.getX() - tarttumaKohtaX);
-            siirrettava.setY(me.getY() - tarttumaKohtaY);
+            siirrettava.x = me.getX() - tarttumaKohtaX;
+            siirrettava.y = me.getY() - tarttumaKohtaY;
             piirtaja.repaint();
         }
     }
 
     private Korttikuva klikattuKuva(MouseEvent e) {
+        Rectangle kosketusAlue = new Rectangle(e.getX(), e.getY(), 1, 1);
+
         for (int i = listaKorttikuvista.size() - 1; i >= 0; i--) {
             Korttikuva korttikuva = listaKorttikuvista.get(i);
 
-            if (!korttikuva.getKortti().oikeinPain()) {
+            if (siirrettava == korttikuva) {
                 continue;
             }
 
-            if (e.getX() >= korttikuva.getX() && e.getX() <= korttikuva.getX() + 121) {
-                if (e.getY() >= korttikuva.getY() && e.getY() <= korttikuva.getY() + 172) {
-                    tarttumaKohtaX = e.getX() - korttikuva.getX();
-                    tarttumaKohtaY = e.getY() - korttikuva.getY();
-                    return korttikuva;
+            if (kosketusAlue.intersects(korttikuva)) {
+                if (siirrettava == null) {
+                    int x = korttikuva.x;
+                    int y = korttikuva.y;
+                    
+                    tarttumaKohtaX = e.getX() - x;
+                    tarttumaKohtaY = e.getY() - y;
+
+                    lahtoX = x;
+                    lahtoY = y;
                 }
+                
+                return korttikuva;
             }
+
         }
         return null;
     }
+
+//    private Rectangle osuttuSuorakulmio(MouseEvent e) {
+//        
+//    }
 }

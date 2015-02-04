@@ -23,4 +23,8 @@
   * uusi luokkakaavio ja pit
 
 **2.2.2015, 1h**
-  * aloitettu luokan hiirenKuuntelija toteutus
+  * aloitettu luokan HiirenKuuntelija toteutus
+
+**4.2.2015, 3h**
+  * jatkettu HiirenKuuntelija-luokan toteutusta, refaktoroitu,
+    lisätty uusia luokkia 
