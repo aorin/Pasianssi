@@ -8,14 +8,12 @@ import java.util.List;
  */
 public class Korttipakka {
     private List<Kortti> korttipakka;
-    private Korttirivisto sijainti;
 
 /**
  * Luo uuden tyhjän korttipakan. Korttipakka ei sijaitse aluksi missään korttirivistössä.
  */
     public Korttipakka() {
         this.korttipakka = new ArrayList<>();
-        this.sijainti = null;
     }
 
 /**
@@ -31,14 +29,12 @@ public class Korttipakka {
     }
    
 /**
- * Metodi lisää kortin korttipakkaan. Samalla se päivittää kortin
- * sijainniksi itsensä.
+ * Metodi lisää kortin korttipakkaan.
  * 
  * @param kortti Lisättävä kortti
  */    
     public void lisaaKortti(Kortti kortti) {
         korttipakka.add(kortti);
-        kortti.setSijainti(this);
     }
     
 /**
@@ -48,6 +44,28 @@ public class Korttipakka {
  */    
     public void poistaKortti(Kortti kortti) {
         korttipakka.remove(kortti);
+    }
+    
+/**
+ * Metodi kertoo, voiko kortin kääntää oikeinpäin. Kortin voi kääntää,
+ * jos se on pakan viimeinen kortti.
+ * 
+ * @param kortti Tutkittava kortti
+ * 
+ * @return Palauttaa true, jos kortin voi kääntää
+ */    
+    public boolean kortinVoiKaantaaOikeinpain(Kortti kortti) {
+        return haeIndeksi(kortti) == korttipakka.size() - 1;
+    }
+    
+    public void siirryYhdellaEteenpain() {
+        Kortti paallimmainen = korttipakka.get(korttipakka.size() - 1);
+        
+        for (int i = korttipakka.size() - 1; i > 0; i--) {
+            korttipakka.add(i + 1, korttipakka.get(i));
+        }
+        
+        korttipakka.add(0, paallimmainen);
     }
     
     public int pakanKoko() {
@@ -60,14 +78,6 @@ public class Korttipakka {
     
     public int haeIndeksi(Kortti kortti) {
         return korttipakka.indexOf(kortti);
-    }
-
-    public Korttirivisto getSijainti() {
-        return sijainti;
-    }
-
-    public void setSijainti(Korttirivisto sijainti) {
-        this.sijainti = sijainti;
     }
 
     public List<Kortti> listaKorteista() {

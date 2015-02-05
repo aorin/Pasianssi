@@ -32,11 +32,6 @@ public class KorttirivistoTest {
     }
     
     @Test
-    public void lisatessaRivinPaivittaaRivinSijainnin() {
-        assertEquals(korttirivisto, korttirivi.getSijainti());
-    }
-    
-    @Test
     public void palauttaaOikeanKoon() {
         korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
         korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());

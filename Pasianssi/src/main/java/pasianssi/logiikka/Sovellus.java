@@ -3,6 +3,9 @@ package pasianssi.logiikka;
 import pasianssi.logiikka.domain.Pelialusta;
 import pasianssi.logiikka.util.Korttienjakaja;
 
+/** 
+ * Luokka luo uuden pelialustan ja jakaa kortit.
+ */
 public class Sovellus {
     private Pelialusta pelialusta;
     private Korttienjakaja jakaja;

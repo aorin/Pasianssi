@@ -46,12 +46,6 @@ public class KorttipakkaTest {
     }
     
     @Test
-    public void asettaaKortilleOikeanSijainnin() {
-        korttipakka.lisaaKortti(kortti1);
-        assertEquals(korttipakka, kortti1.getSijainti());
-    }
-    
-    @Test
     public void hakeeKortinIndeksinPerusteella1() {
         korttipakka.lisaaKortti(kortti1);
         korttipakka.lisaaKortti(kortti2);

@@ -7,7 +7,6 @@ public class Kortti {
     private final Maa maa;
     private final int arvo;
     private boolean oikeinpain;
-    private Korttipakka sijainti;
 
 /**
  * Konstruktori luo uuden kortin annetulla maalla ja arvolla.
@@ -42,14 +41,6 @@ public class Kortti {
 
     public Maa getMaa() {
         return maa;
-    }
-
-    public Korttipakka getSijainti() {
-        return sijainti;
-    }
-
-    public void setSijainti(Korttipakka sijainti) {
-        this.sijainti = sijainti;
     }
     
 /**

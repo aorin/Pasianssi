@@ -18,14 +18,12 @@ public class Korttirivisto {
     }
     
 /**
- * Metodi lisää rivistöön uuden korttipakan. Samalla se asettaa korttipakan
- * sijainniksi itsensä.
-   
-   @param rivi Lisättävä rivi
+ * Metodi lisää rivistöön uuden korttipakan.
+ * 
+ * @param rivi Lisättävä rivi
  */    
     public void lisaaRivi(Korttipakka rivi) {
         korttirivisto.add(rivi);
-        rivi.setSijainti(this);
     }
     
     public Korttipakka haePakka(int indeksi) {
