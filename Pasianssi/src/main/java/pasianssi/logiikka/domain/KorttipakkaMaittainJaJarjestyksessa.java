@@ -1,17 +1,26 @@
 package pasianssi.logiikka.domain;
 
+/**
+ * Luokka määrittelee korttipakan, jonka kaikki kortit ovat samaa maata
+ * ja kortit ovat järjestyksessä.
+ */
 public class KorttipakkaMaittainJaJarjestyksessa extends Korttipakka {
 
+/**
+ * Metodi lisää kortin korttipakkaan, jos kortti on samaa maata kuin edellinen
+ * kortti ja arvoltaan yhden suurempi. Jos pakka on tyhjä ja kortti on arvoltaan
+ * 1, myös silloin kortti voidaan lisätä.
+ * 
+ * @param kortti Lisättävä kortti
+ * 
+ * @return Palauttaa totta, jos lisäys onnistui 
+ */
     @Override
-    public boolean lisaaKortti(Kortti kortti) {
+    public boolean lisaaKorttiEhdolla(Kortti kortti) {
         if (onJarjestyksessaSeuraavaKortti(kortti) || kayPakanEnsimmaiseksiKortiksi(kortti)) {
-            return super.lisaaKortti(kortti);
+            lisaaKortti(kortti);
+            return true;
         }
-        return false;
-    }
-
-    @Override
-    public boolean poistaKortti(Kortti kortti) {
         return false;
     }
 

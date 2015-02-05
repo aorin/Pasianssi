@@ -46,12 +46,11 @@ public class HiirenKuuntelija extends MouseInputAdapter {
 
         Korttikuva kuva = klikattuKuva(e);
 
-        if (kuva != null && kuva.getKortti().getSijainti().lisaaKortti(siirrettava.getKortti())) {
-                System.out.println("aaa");
-                sijainninPaivittaja.paivitaSijainti(siirrettava);
+        if (kuva != null && kuva.getKortti().getSijainti().lisaaKorttiEhdolla(siirrettava.getKortti())) {
+            sijainninPaivittaja.paivitaSijainti(siirrettava);
         } else {
-                siirrettava.x = lahtoX;
-                siirrettava.y = lahtoY;
+            siirrettava.x = lahtoX;
+            siirrettava.y = lahtoY;
 
         }
 
@@ -65,7 +64,7 @@ public class HiirenKuuntelija extends MouseInputAdapter {
     public void mouseClicked(MouseEvent e) {
         Korttikuva klikattu = klikattuKuva(e);
         if (klikattu != null && !klikattu.getKortti().oikeinPain()) {
-            klikattu.kaannaKorttiOikeinpain();
+            //kaanna kortti
         }
 
         piirtaja.repaint();
@@ -92,24 +91,22 @@ public class HiirenKuuntelija extends MouseInputAdapter {
 
             if (kosketusAlue.intersects(korttikuva)) {
                 if (siirrettava == null) {
+                    siirrettava = korttikuva;
+
                     int x = korttikuva.x;
                     int y = korttikuva.y;
-                    
+
                     tarttumaKohtaX = e.getX() - x;
                     tarttumaKohtaY = e.getY() - y;
 
                     lahtoX = x;
                     lahtoY = y;
                 }
-                
+
                 return korttikuva;
             }
 
         }
         return null;
     }
-
-//    private Rectangle osuttuSuorakulmio(MouseEvent e) {
-//        
-//    }
 }

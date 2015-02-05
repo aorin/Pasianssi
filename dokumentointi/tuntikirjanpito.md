@@ -27,4 +27,7 @@
 
 **4.2.2015, 3h**
   * jatkettu HiirenKuuntelija-luokan toteutusta, refaktoroitu,
-    lisätty uusia luokkia 
+    lisätty uusia luokkia
+
+**5.2.2015, 1h**
+  * lisätty testejä ja aloitettu javadocin tekemistä 

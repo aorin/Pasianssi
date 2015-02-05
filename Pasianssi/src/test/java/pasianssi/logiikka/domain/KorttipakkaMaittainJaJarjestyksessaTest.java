@@ -20,34 +20,44 @@ public class KorttipakkaMaittainJaJarjestyksessaTest {
     
     @Test
     public void lisaaOikeanEnsimmaisenKortin() {
-        korttipakka.lisaaKortti(kortti1);
+        korttipakka.lisaaKorttiEhdolla(kortti1);
         assertEquals(kortti1, korttipakka.haeKortti(0));
     }
     
     @Test
     public void eiLisaaVaaraaEnsimmaistaKorttia() {
-        korttipakka.lisaaKortti(kortti2);
+        korttipakka.lisaaKorttiEhdolla(kortti2);
         assertEquals(0, korttipakka.pakanKoko());
     }
     
     @Test
     public void lisaaOikeanToisenKortin() {
-        korttipakka.lisaaKortti(kortti1);
-        korttipakka.lisaaKortti(kortti2);
+        korttipakka.lisaaKorttiEhdolla(kortti1);
+        korttipakka.lisaaKorttiEhdolla(kortti2);
         assertEquals(kortti2, korttipakka.haeKortti(1));
     }
     
     @Test
     public void eiLisaaVaaranMaanKorttia() {
-        korttipakka.lisaaKortti(kortti1);
-        korttipakka.lisaaKortti(new Kortti(Maa.HERTTA, 2));
+        korttipakka.lisaaKorttiEhdolla(kortti1);
+        korttipakka.lisaaKorttiEhdolla(new Kortti(Maa.HERTTA, 2));
         assertEquals(1, korttipakka.pakanKoko());
     }
     
     @Test
     public void eiLisaaVaaranArvoistaKorttia() {
-        korttipakka.lisaaKortti(kortti1);
-        korttipakka.lisaaKortti(new Kortti(Maa.PATA, 5));
+        korttipakka.lisaaKorttiEhdolla(kortti1);
+        korttipakka.lisaaKorttiEhdolla(new Kortti(Maa.PATA, 5));
         assertEquals(1, korttipakka.pakanKoko());
+    }
+    
+    @Test
+    public void palauttaaTrueJosLisaysOnnistuu() {
+        assertTrue(korttipakka.lisaaKorttiEhdolla(kortti1));
+    }
+    
+    @Test
+    public void palauttaaFalseJosLisaysEiOnnistu() {
+        assertTrue(!korttipakka.lisaaKorttiEhdolla(kortti2));
     }
 }

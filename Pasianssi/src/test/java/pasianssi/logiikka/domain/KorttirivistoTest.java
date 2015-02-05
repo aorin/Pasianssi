@@ -22,21 +22,31 @@ public class KorttirivistoTest {
         
         korttirivi.lisaaKortti(kortti1);
         korttirivi.lisaaKortti(kortti2);
+        
+        korttirivisto.lisaaRivi(korttirivi);
     }
     
     @Test
     public void lisaaYhdenRivin() {
-        korttirivisto.lisaaRivi(korttirivi);
         assertEquals(korttirivi, korttirivisto.haePakka(0));
     }
     
     @Test
+    public void lisatessaRivinPaivittaaRivinSijainnin() {
+        assertEquals(korttirivisto, korttirivi.getSijainti());
+    }
+    
+    @Test
     public void palauttaaOikeanKoon() {
-        korttirivisto.lisaaRivi(korttirivi);
         korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
         korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
         korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
         
         assertEquals(4, korttirivisto.koko());
+    }
+    
+    @Test
+    public void hakeeIndeksinPakanPerusteella() {
+        assertEquals(0, korttirivisto.haeIndeksi(korttirivi));
     }
 }

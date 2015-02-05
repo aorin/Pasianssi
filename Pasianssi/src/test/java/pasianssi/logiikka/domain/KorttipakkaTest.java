@@ -33,10 +33,22 @@ public class KorttipakkaTest {
     }
     
     @Test
+    public void palauttaaFalseJosYrittaaLisaaKorttiaEhdolla() {
+        boolean b = korttipakka.lisaaKorttiEhdolla(kortti1);
+        assertTrue(!b);
+    }
+    
+    @Test
     public void poistaaKortin() {
         korttipakka.lisaaKortti(kortti1);
         korttipakka.poistaKortti(kortti1);
         assertEquals(0, korttipakka.pakanKoko());
+    }
+    
+    @Test
+    public void asettaaKortilleOikeanSijainnin() {
+        korttipakka.lisaaKortti(kortti1);
+        assertEquals(korttipakka, kortti1.getSijainti());
     }
     
     @Test
@@ -51,5 +63,12 @@ public class KorttipakkaTest {
         korttipakka.lisaaKortti(kortti1);
         korttipakka.lisaaKortti(kortti2);
         assertEquals(kortti2, korttipakka.haeKortti(1));
+    }
+    
+    @Test
+    public void hakeeIndeksinKortinPerusteella() {
+        korttipakka.lisaaKortti(kortti2);
+        korttipakka.lisaaKortti(kortti1);
+        assertEquals(1, korttipakka.haeIndeksi(kortti1));
     }
 }

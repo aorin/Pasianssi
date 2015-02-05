@@ -41,10 +41,12 @@
                 <version>0.30</version>
                 <configuration>
                     <targetClasses>
-                        <param>pasianssi.logiikka*</param>
+                        <param>pasianssi.logiikka.domain*</param>
+                        <param>pasianssi.logiikka.util*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>pasianssi.logiikka*</param>
+                        <param>pasianssi.logiikka.domain*</param>
+                        <param>pasianssi.logiikka.util*</param>
                     </targetTests>
                 </configuration>
             </plugin>

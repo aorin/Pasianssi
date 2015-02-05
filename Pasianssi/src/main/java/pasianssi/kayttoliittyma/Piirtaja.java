@@ -21,12 +21,6 @@ public class Piirtaja extends JPanel {
         this.kuvatKorteista = listaKuvista;
         this.pohjaSuorakulmiot = pohjaSuorakulmiot;
     }
-    
-
-    
-
-    
-  
 
     @Override
     protected void paintComponent(Graphics g) {

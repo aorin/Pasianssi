@@ -1,43 +1,32 @@
 package pasianssi.logiikka.domain;
 
+/**
+ * Luokka määrittelee korttipakan, jonka oikeinpäin olevat kortit
+ * ovat järjestyksessä ja vuorovärein.Pakan alkuosassa voi olla
+ * mitä tahansa väärinpäin olevia kortteja.
+ */
 public class KorttipakkaVuoroVareinJaJarjestyksessa extends Korttipakka {
-
-    public KorttipakkaVuoroVareinJaJarjestyksessa() {
-    }
     
+/**
+ * Metodi lisää kortin pakkaan, jos lisättävän kortin maa on pakan viimeisen
+ * kortin maan kanssa erivärinen ja jos sen arvo on yhtä pienempi kuin pakan
+ * viimeisen kortin.
+ * 
+ * @param kortti Lisättävä kortti
+ * 
+ * @return Palauttaa totta, jos lisäys onnistui
+ */    
     @Override
-    public boolean lisaaKortti(Kortti kortti) {
+    public boolean lisaaKorttiEhdolla(Kortti kortti) {
         if (kaySeuraavaksi(kortti)) {
-            return super.lisaaKortti(kortti);
-        }
-        return false;
-    }
-
-    @Override
-    public boolean poistaKortti(Kortti kortti) {
-        if (kortti.oikeinPain()) {
-            int i = haeIndeksi(kortti);
-            
-            for (int j = pakanKoko() - 1; i <= i; i--) {
-                super.poistaKortti(kortti);
-            }
-            
+            lisaaKortti(kortti);
             return true;
         }
-        
         return false;
     }
     
     private boolean kaySeuraavaksi(Kortti kortti) {
-        if (this.pakanKoko() == 0 || !kortti.oikeinPain()) {
-            return true;
-        }
-        
         Kortti edellinenKortti = this.haeKortti(pakanKoko() - 1);
-        
-        if (!edellinenKortti.oikeinPain()) {
-            return true;
-        }
         
         if (kortti.getMaa().getArvo() % 2 == edellinenKortti.getMaa().getArvo() % 2) {
             return false;

@@ -75,15 +75,15 @@ public class KuvienLuoja {
     }
     
     public List<Rectangle> luoSuorakulmiot() {
-        List<Rectangle> tyhjatKuvat = new ArrayList<>();
+        List<Rectangle> suorakulmiot = new ArrayList<>();
         
         for (int i = 0; i < 4; i++) {
             Rectangle kuva = new Rectangle(kortinLeveys, kortinKorkeus);
-            tyhjatKuvat.add(kuva);
+            suorakulmiot.add(kuva);
         }
         
-        paivittaja.paivitaPohjaSuorakulmienSijainnit(tyhjatKuvat);
+        paivittaja.paivitaPohjaSuorakulmienSijainnit(suorakulmiot);
         
-        return tyhjatKuvat;
+        return suorakulmiot;
     }
 }

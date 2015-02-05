@@ -37,14 +37,14 @@ public class ArpojaTest {
     
     @Test
     public void eiArvoNeljaKertaaSamaaKorttia() {
-        Kortti kortti1 = arpoja.arvoKortti(pakka);
-        Kortti kortti2 = arpoja.arvoKortti(pakka);
-        Kortti kortti3 = arpoja.arvoKortti(pakka);
         Kortti kortti4 = arpoja.arvoKortti(pakka);
+        Kortti kortti5 = arpoja.arvoKortti(pakka);
+        Kortti kortti6 = arpoja.arvoKortti(pakka);
+        Kortti kortti7 = arpoja.arvoKortti(pakka);
         
         boolean eiArvoSamaaKorttia = true;
         
-        if (kortti1 == kortti2 && kortti2 == kortti3 && kortti3 == kortti4) {
+        if (kortti4 == kortti5 && kortti5 == kortti6 && kortti6 == kortti7) {
             eiArvoSamaaKorttia = false;
         }
         

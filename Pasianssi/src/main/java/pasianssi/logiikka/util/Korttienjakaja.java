@@ -3,18 +3,27 @@ package pasianssi.logiikka.util;
 import java.util.Collections;
 import pasianssi.logiikka.domain.*;
 
+/**
+ * Luokka luo ja jakaa kortit paikoilleen.
+ */
 public class Korttienjakaja {
-
     private Pelialusta pelialusta;
     private Korttipakka korttipakka;
     private Arpoja arpoja;
 
+/**
+ * Konstruktori luo uuden pelialustan ja arpojan.  
+ */
     public Korttienjakaja(Pelialusta pelialusta) {
         this.pelialusta = pelialusta;
         this.korttipakka = pelialusta.getKorttipakka();
         this.arpoja = new Arpoja();
     }
 
+/**
+ * Metodi luo 52 uutta korttia, jakaa osan niistä seitsemään riviin ja lopuksi
+ * luo neljä tyhjää tavoitepakkaa.
+ */    
     public void jaaKortit() {
         luoKortit();
 
@@ -26,10 +35,10 @@ public class Korttienjakaja {
     private void luoKortit() {
         for (Maa maa : Maa.values()) {
             for (int i = 1; i <= 13; i++) {
-                korttipakka.lisaaKortti(new Kortti(maa, i));
+                Kortti kortti = new Kortti(maa, i);
+                korttipakka.lisaaKortti(kortti);
             }
         }
-        
         Collections.shuffle(korttipakka.listaKorteista());
     }
 
