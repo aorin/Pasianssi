@@ -1,6 +1,8 @@
 package pasianssi.kayttoliittyma;
 
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 import pasianssi.logiikka.domain.Kortti;
 import pasianssi.logiikka.domain.Korttipakka;
 
@@ -9,47 +11,50 @@ import pasianssi.logiikka.domain.Korttipakka;
  * ohjeiden mukaisesti.
  */
 public class TapahtumaAlue extends Rectangle {
-    private Korttipakka pakka;
 
-    public TapahtumaAlue(int x, int y, int leveys, int korkeus, Korttipakka pakka) {
+    private Korttipakka pakka;
+    private Kortti kortti;
+
+    public TapahtumaAlue(int x, int y, int leveys, int korkeus, Korttipakka pakka, Kortti kortti) {
         super(x, y, leveys, korkeus);
         this.pakka = pakka;
+        this.kortti = kortti;
     }
 
-    public void alueeseenKlikattu(Kortti siirrossaOlevaKortti, int x, int y) {
-        if (siirrossaOlevaKortti != null || pakka.listaKorteista().isEmpty()) {
+    public void alueeseenKlikattu(int x, int y) {
+        if (kortti == null) {
             return;
         }
-        
-        Kortti paallimmainenKortti = pakka.haeKortti(pakka.pakanKoko() - 1);
-        if (!paallimmainenKortti.oikeinPain()) {
-            kaannaKortti(paallimmainenKortti);
-        }
-    }
-    
-    private void kaannaKortti(Kortti kortti) {
-        if (pakka.kortinVoiKaantaaOikeinpain(kortti)) {
+
+        if (!kortti.oikeinPain()) {
             kortti.kaannaKorttiOikeinpain();
+        } else {
+            pakka.siirryYhdellaEteenpain();
         }
-    }
-    
-    public Kortti alueenPaallaPainettu(Kortti siirrettava, int x, int y) {
-        if (siirrettava != null) {
-            return siirrettava;
-        }
-        
-        return null;
     }
 
-    public Kortti alueenPaallaPaastettyIrti(Kortti siirrettava, int x, int y) {
-        if (siirrettava == null) {
-            return null;
+    public List<Kortti> alueenPaallaPainettu(int x, int y) {
+        List<Kortti> kortit = new ArrayList<>();
+
+        if (kortti != null && kortti.oikeinPain()) {
+            for (int i = pakka.haeIndeksi(kortti); i < pakka.pakanKoko(); i++) {
+                kortit.add(pakka.haeKortti(i));
+            }
         }
-        
-        if (pakka.lisaaKorttiEhdolla(siirrettava)) {
-            return null;
+
+        return kortit;
+    }
+
+    public void alueenPaallaPaastettyIrti(List<Kortti> siirrettava, int x, int y) {
+        Korttipakka edellinenPakka = siirrettava.get(0).getSijainti();
+        if (pakka.lisaaKorttiEhdolla(siirrettava.get(0))) {
+            for (int i = 1; i < siirrettava.size(); i++) {
+                pakka.lisaaKorttiEhdolla(siirrettava.get(i));
+            }
+
+            for (int i = 0; i < siirrettava.size(); i++) {
+                edellinenPakka.poistaKortti(siirrettava.get(i));
+            }
         }
-        
-        return siirrettava;
     }
 }

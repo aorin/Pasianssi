@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Korttipakka {
     private List<Kortti> korttipakka;
+    private int x, y;
 
 /**
  * Luo uuden tyhjän korttipakan. Korttipakka ei sijaitse aluksi missään korttirivistössä.
@@ -35,6 +36,7 @@ public class Korttipakka {
  */    
     public void lisaaKortti(Kortti kortti) {
         korttipakka.add(kortti);
+        kortti.setSijainti(this);
     }
     
 /**
@@ -60,12 +62,16 @@ public class Korttipakka {
     
     public void siirryYhdellaEteenpain() {
         Kortti paallimmainen = korttipakka.get(korttipakka.size() - 1);
+        paallimmainen.kaannaKorttiVaarinpain();
+        List<Kortti> apupakka = new ArrayList<>();
+        apupakka.add(paallimmainen);
         
-        for (int i = korttipakka.size() - 1; i > 0; i--) {
-            korttipakka.add(i + 1, korttipakka.get(i));
+        for (int i = 0; i < korttipakka.size() - 1; i++) {
+            apupakka.add(korttipakka.get(i));
         }
         
-        korttipakka.add(0, paallimmainen);
+        apupakka.get(apupakka.size() - 1).kaannaKorttiOikeinpain();
+        korttipakka = apupakka;
     }
     
     public int pakanKoko() {
@@ -76,11 +82,31 @@ public class Korttipakka {
         return korttipakka.get(indeksi);
     }
     
+    public Kortti haeViimeinenKortti() {
+        return korttipakka.get(korttipakka.size() - 1);
+    }
+    
     public int haeIndeksi(Kortti kortti) {
         return korttipakka.indexOf(kortti);
     }
 
     public List<Kortti> listaKorteista() {
         return korttipakka;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

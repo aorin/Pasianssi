@@ -26,6 +26,10 @@ public class KorttipakkaVuoroVareinJaJarjestyksessa extends Korttipakka {
     }
     
     private boolean kaySeuraavaksi(Kortti kortti) {
+        if (pakanKoko() == 0) {
+            return kortti.getArvo() == 13;
+        }
+        
         Kortti edellinenKortti = this.haeKortti(pakanKoko() - 1);
         
         if (kortti.getMaa().getArvo() % 2 == edellinenKortti.getMaa().getArvo() % 2) {

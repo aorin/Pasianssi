@@ -31,4 +31,7 @@
 
 **5.2.2015, 3h**
   * lisätty testejä ja aloitettu javadocin tekemistä
-  * refaktoroitu varsinkin käyttöliittymän luokkia 
+  * refaktoroitu varsinkin käyttöliittymän luokkia
+
+**10.2.2015, 2h**
+  *  muokattu SijainninPaivittaja ja HiirenKuuntelija luokkia
