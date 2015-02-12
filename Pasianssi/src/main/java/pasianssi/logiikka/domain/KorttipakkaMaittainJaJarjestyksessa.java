@@ -2,18 +2,18 @@ package pasianssi.logiikka.domain;
 
 /**
  * Luokka määrittelee korttipakan, jonka kaikki kortit ovat samaa maata
- * ja kortit ovat järjestyksessä.
+ * ja järjestyksessä.
  */
 public class KorttipakkaMaittainJaJarjestyksessa extends Korttipakka {
 
 /**
  * Metodi lisää kortin korttipakkaan, jos kortti on samaa maata kuin edellinen
- * kortti ja arvoltaan yhden suurempi. Jos pakka on tyhjä ja kortti on arvoltaan
- * 1, myös silloin kortti voidaan lisätä.
+ * kortti ja arvoltaan yhden suurempi tai jos pakka on tyhjä ja kortti on arvoltaan
+ * 1.
  * 
- * @param kortti Lisättävä kortti
+ * @param kortti Lisättävä kortti.
  * 
- * @return Palauttaa totta, jos lisäys onnistui 
+ * @return Palauttaa totta, jos lisäys onnistui. 
  */
     @Override
     public boolean lisaaKorttiEhdolla(Kortti kortti) {
@@ -25,16 +25,16 @@ public class KorttipakkaMaittainJaJarjestyksessa extends Korttipakka {
     }
 
     private boolean onJarjestyksessaSeuraavaKortti(Kortti kortti) {
-        if (this.pakanKoko() == 0) {
+        if (this.koko() == 0) {
             return false;
         }
         
-        Kortti edellinenKortti = this.haeKortti(this.pakanKoko() - 1);
+        Kortti edellinenKortti = this.haeKortti(koko() - 1);
 
         return edellinenKortti.getMaa().equals(kortti.getMaa()) && edellinenKortti.getArvo() == kortti.getArvo() - 1;
     }
 
     private boolean kayPakanEnsimmaiseksiKortiksi(Kortti kortti) {
-        return this.pakanKoko() == 0 && kortti.getArvo() == 1;
+        return koko() == 0 && kortti.getArvo() == 1;
     }
 }

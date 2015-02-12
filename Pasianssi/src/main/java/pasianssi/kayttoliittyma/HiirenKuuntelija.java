@@ -13,7 +13,6 @@ import pasianssi.logiikka.domain.Pelialusta;
  * toimintaa sen mukaan.
  */
 public class HiirenKuuntelija extends MouseInputAdapter {
-
     private Pelialusta pelilauta;
     private Piirtaja piirtaja;
     private SijainninPaivittaja paivittaja;
@@ -21,13 +20,21 @@ public class HiirenKuuntelija extends MouseInputAdapter {
     private List<Kortti> siirrettavat;
     private int tarttumaKohtaX, tarttumaKohtaY;
 
+/**
+ * Konstukrodi asettaa luokalle piirtäjän, pelilaudan ja sijainnin päivittäjän
+ * ja lisäksi luo uuden tyhjän listan edustamaan tällä hetkellä siirrossa
+ * olevia kortteja.
+ * 
+ * @param piirtaja Piirtäjä, joka piirtää korttien kuvat.
+ * @param lauta Pelialusta.
+ * @param paivittaja Päivittäjä, joka päivittää korttien sijainnit ja
+ * antaa oikeat tapahtuma-alueet.
+ */
     public HiirenKuuntelija(Piirtaja piirtaja, Pelialusta lauta, SijainninPaivittaja paivittaja) {
         this.pelilauta = lauta;
         this.piirtaja = piirtaja;
         this.paivittaja = paivittaja;
         this.siirrettavat = new ArrayList<>();
-        this.tarttumaKohtaX = KuvanAntaja.kortinLeveys / 2;
-        this.tarttumaKohtaY = KuvanAntaja.kortinKorkeus / 2;
     }
 
     @Override

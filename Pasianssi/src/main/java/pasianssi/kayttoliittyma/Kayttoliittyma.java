@@ -13,6 +13,10 @@ public class Kayttoliittyma implements Runnable {
     private JFrame frame;
     private Pelialusta pelialusta;
 
+/**
+ * Konstruktori asettaa käyttöliittymälle käytössä olevan pelialustan.
+ * @param alusta Pelialusta.
+ */
     public Kayttoliittyma(Pelialusta alusta) {
         this.pelialusta = alusta;
     }
@@ -20,20 +24,32 @@ public class Kayttoliittyma implements Runnable {
     @Override
     public void run() {
         frame = new JFrame("Pasianssi");
-        frame.setPreferredSize(new Dimension(1000, 700));
+        frame.setPreferredSize(new Dimension(950, 700));
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         luoKomponentit(frame.getContentPane());
 
         frame.pack();
+        
         frame.setVisible(true);
     }
 
     private void luoKomponentit(Container container) {
-        Piirtaja piirtoalusta = new Piirtaja(pelialusta); 
+        Piirtaja piirtoalusta = new Piirtaja(pelialusta);
+        
+        SijainninPaivittaja paivittaja = new SijainninPaivittaja(pelialusta);
+        paivittaja.asetaKaikkienKorttienSijainti();
+        lisaaKuuntelija(paivittaja, piirtoalusta);
  
         container.add(piirtoalusta);
+    }
+    
+        
+    private void lisaaKuuntelija(SijainninPaivittaja paivittaja, Piirtaja piirtaja) {
+        HiirenKuuntelija kuuntelija = new HiirenKuuntelija(piirtaja, pelialusta, paivittaja);
+        piirtaja.addMouseListener(kuuntelija);
+        piirtaja.addMouseMotionListener(kuuntelija);
     }
 
     public JFrame getFrame() {

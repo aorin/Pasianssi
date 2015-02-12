@@ -23,10 +23,6 @@ public class Piirtaja extends JPanel {
         this.pelialusta = alusta;
         this.kuvanAntaja = new KuvanAntaja();
         this.siirrettavat = new ArrayList<>();
-       
-        SijainninPaivittaja paivittaja = new SijainninPaivittaja(alusta);
-        paivittaja.asetaKaikkienKorttienSijainti();
-        lisaaKuuntelija(paivittaja);
     }
 
     @Override
@@ -53,7 +49,7 @@ public class Piirtaja extends JPanel {
     private void piirraKorttipakka(Graphics g, Korttipakka pakka) {
         piirraTyhjaNelio(g, pakka.getX(), pakka.getY());
         
-        for (int i = 0; i < pakka.pakanKoko(); i++) {
+        for (int i = 0; i < pakka.koko(); i++) {
             piirraKortti(g, pakka.haeKortti(i));
         }
     }
@@ -77,11 +73,5 @@ public class Piirtaja extends JPanel {
 
     public void setSiirrettavat(List<Kortti> siirrettavat) {
         this.siirrettavat = siirrettavat;
-    }
-    
-    private void lisaaKuuntelija(SijainninPaivittaja paivittaja) {
-        HiirenKuuntelija kuuntelija = new HiirenKuuntelija(this, pelialusta, paivittaja);
-        this.addMouseListener(kuuntelija);
-        this.addMouseMotionListener(kuuntelija);
     }
 }

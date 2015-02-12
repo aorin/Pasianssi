@@ -11,28 +11,30 @@ public class Korttipakka {
     private int x, y;
 
 /**
- * Luo uuden tyhjän korttipakan. Korttipakka ei sijaitse aluksi missään korttirivistössä.
+ * Konstruktori luo uuden tyhjän korttipakan.
  */
     public Korttipakka() {
         this.korttipakka = new ArrayList<>();
     }
 
 /**
- * Metodi lisää kortin, jos ehto sen lisäämiselle täyttyy. Normaalissa
- * korttipakassa ehto ei koskaan täyty.
+ * Metodi lisää kortin, jos ehto sen lisäämiselle täyttyy.
+ * <p>
+ * Normaalissa korttipakassa ehto ei koskaan täyty, joten metodi palauttaa aina
+ * false.
  * 
- * @param kortti Lisättävä kortti
+ * @param kortti Lisättävä kortti.
  * 
- * @return Palauttaa totta, jos lisäys onnistuu
+ * @return Palauttaa true, jos lisäys onnistuu.
  */
     public boolean lisaaKorttiEhdolla(Kortti kortti) {
         return false;
     }
    
 /**
- * Metodi lisää kortin korttipakkaan.
+ * Metodi lisää kortin korttipakkaan ja asettaa kortin sijainniksi itsensä.
  * 
- * @param kortti Lisättävä kortti
+ * @param kortti Lisättävä kortti.
  */    
     public void lisaaKortti(Kortti kortti) {
         korttipakka.add(kortti);
@@ -42,24 +44,16 @@ public class Korttipakka {
 /**
  * Metodi poistaa kortin korttipakasta.
  * 
- * @param kortti Poistettava kortti
+ * @param kortti Poistettava kortti.
  */    
     public void poistaKortti(Kortti kortti) {
         korttipakka.remove(kortti);
     }
     
 /**
- * Metodi kertoo, voiko kortin kääntää oikeinpäin. Kortin voi kääntää,
- * jos se on pakan viimeinen kortti.
- * 
- * @param kortti Tutkittava kortti
- * 
- * @return Palauttaa true, jos kortin voi kääntää
+ * Metodi siirtää korttien järjestystä pakassa niin, että pakan pakan päällimmäinen
+ * kortti siirtyy viimeiseksi.
  */    
-    public boolean kortinVoiKaantaaOikeinpain(Kortti kortti) {
-        return haeIndeksi(kortti) == korttipakka.size() - 1;
-    }
-    
     public void siirryYhdellaEteenpain() {
         Kortti paallimmainen = korttipakka.get(korttipakka.size() - 1);
         paallimmainen.kaannaKorttiVaarinpain();
@@ -74,22 +68,48 @@ public class Korttipakka {
         korttipakka = apupakka;
     }
     
-    public int pakanKoko() {
+/**
+ * Metodi kertoo pakan koon.
+ * 
+ * @return Pakassa olevien korttien määrä.
+ */    
+    public int koko() {
         return korttipakka.size();
     }
     
+/**
+ * Metodi hakee kortin indeksin perusteella.
+ * 
+ * @param indeksi Indeksi, jolla haetaan.
+ * @return Indeksiä vastaava kortti.
+ */    
     public Kortti haeKortti(int indeksi) {
         return korttipakka.get(indeksi);
     }
-    
-    public Kortti haeViimeinenKortti() {
+ 
+/**
+ * Metodi hakee päällimmäisenä olevan kortin.
+ * 
+ * @return Pakan viimeisenä oleva kortti. 
+ */    
+    public Kortti haePaallimmainenKortti() {
         return korttipakka.get(korttipakka.size() - 1);
     }
     
+/**
+ * Metodi hakee kortin indeksin.
+ * 
+ * @param kortti Kortti, jonka indeksi pakassa halutaan selvittää.
+ * @return Kortin indeksi.
+ */    
     public int haeIndeksi(Kortti kortti) {
         return korttipakka.indexOf(kortti);
     }
-
+/**
+ * Hakee listan pakassa olevista korteista.
+ * 
+ * @return Lista pakassa olevista korteista. 
+ */
     public List<Kortti> listaKorteista() {
         return korttipakka;
     }

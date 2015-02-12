@@ -27,7 +27,7 @@ public class KorttipakkaMaittainJaJarjestyksessaTest {
     @Test
     public void eiLisaaVaaraaEnsimmaistaKorttia() {
         korttipakka.lisaaKorttiEhdolla(kortti2);
-        assertEquals(0, korttipakka.pakanKoko());
+        assertEquals(0, korttipakka.koko());
     }
     
     @Test
@@ -41,14 +41,14 @@ public class KorttipakkaMaittainJaJarjestyksessaTest {
     public void eiLisaaVaaranMaanKorttia() {
         korttipakka.lisaaKorttiEhdolla(kortti1);
         korttipakka.lisaaKorttiEhdolla(new Kortti(Maa.HERTTA, 2));
-        assertEquals(1, korttipakka.pakanKoko());
+        assertEquals(1, korttipakka.koko());
     }
     
     @Test
     public void eiLisaaVaaranArvoistaKorttia() {
         korttipakka.lisaaKorttiEhdolla(kortti1);
         korttipakka.lisaaKorttiEhdolla(new Kortti(Maa.PATA, 5));
-        assertEquals(1, korttipakka.pakanKoko());
+        assertEquals(1, korttipakka.koko());
     }
     
     @Test

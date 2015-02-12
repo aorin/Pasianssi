@@ -37,4 +37,16 @@ public class KorttiTest {
         kortti.kaannaKorttiVaarinpain();
         assertTrue(!kortti.oikeinPain());
     }
+    
+    @Test
+    public void asettaaKortilleOikeanXArvon() {
+        kortti.setX(100);
+        assertEquals(100, kortti.getX());
+    }
+    
+    @Test
+    public void asettaaKortilleOikeanYArvon() {
+        kortti.setY(76);
+        assertEquals(76, kortti.getY());
+    }
 }

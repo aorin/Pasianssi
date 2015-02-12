@@ -18,11 +18,11 @@ public class Arpoja {
 /**
  * Metodi arpoo satunnaisen luvun annetusta korttipakasta.
  * 
- * @param korttipakka Korttipakka, jonka korteista arvonta tapahtuu
- * @return Arvottu kortti
+ * @param korttipakka Korttipakka, jonka korteista arvonta tapahtuu.
+ * @return Arvottu kortti.
  */
     public Kortti arvoKortti(Korttipakka korttipakka) {
-        int arvottuLuku = arvoLuku(korttipakka.pakanKoko());
+        int arvottuLuku = arvoLuku(korttipakka.koko());
         
         return korttipakka.haeKortti(arvottuLuku);
     }

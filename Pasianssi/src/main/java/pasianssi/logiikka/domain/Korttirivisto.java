@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Luokka määrittelee käsitteen korttirivistö. Korttirivistö on käytännössä
- * lista korttipakkoja.
+ * Luokka määrittelee käsitteen korttirivistö.
+ * <p>
+ * Korttirivistö on käytännössä lista korttipakkoja.
  */
 public class Korttirivisto {
     private List<Korttipakka> korttirivisto;
@@ -20,10 +21,10 @@ public class Korttirivisto {
 /**
  * Metodi lisää rivistöön uuden korttipakan.
  * 
- * @param rivi Lisättävä rivi
+ * @param pakka Lisättävä korttipakka.
  */    
-    public void lisaaRivi(Korttipakka rivi) {
-        korttirivisto.add(rivi);
+    public void lisaaPakka(Korttipakka pakka) {
+        korttirivisto.add(pakka);
     }
     
     public Korttipakka haePakka(int indeksi) {

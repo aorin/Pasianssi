@@ -11,14 +11,28 @@ import pasianssi.logiikka.domain.Kortti;
  * Luokka tarjoaa toiminnallisuuden kuvan hakemiseen kortin perusteella.
  */
 public class KuvanAntaja {
+/**
+ * {@value #kortinLeveys} Muuttuja kertoo korttien kuvien leveyden.
+ */
     public static final int kortinLeveys = 121;
+/**
+ * {@value #kortinKorkeus} Muuttuja kertoo korttien kuvien korkeuden.
+ */    
     public static final int kortinKorkeus = 172;
     private final BufferedImage kuvapohja;
 
+/**
+ * Konstruktori lukee kuvatiedoston Image-tyyppiseen muuttujaansa. 
+ */    
     public KuvanAntaja() {
         kuvapohja = lueKuvatiedosto();
     }
-    
+ 
+/**
+ * Palauttaa parametrina annettua korttia vastaavan kuvan.
+ * @param kortti Kortti, jonka kuvaa haetaan.
+ * @return Kortin kuva.
+ */    
     public Image annaKortilleKuva(Kortti kortti) {
         if (!kortti.oikeinPain()) {
             return kuvapohja.getSubimage(kortinLeveys * 13, 0, kortinLeveys, kortinKorkeus);

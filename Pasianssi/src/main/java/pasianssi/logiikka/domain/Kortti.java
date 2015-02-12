@@ -12,6 +12,7 @@ public class Kortti {
 
 /**
  * Konstruktori luo uuden kortin annetulla maalla ja arvolla.
+ * <p>
  * Alussa kortti on väärinpäin.
  * 
  * @param maa Kortin maa
@@ -48,7 +49,7 @@ public class Kortti {
 /**
  * Metodi kertoo, onko kortti oikein- vai väärinpäin.
  * 
- * @return Totuusarvo siitä, onko kortti oikeinpäin
+ * @return Palauttaa true, jos kortti on oikeinpäin, muulloin false.
  */
     public boolean oikeinPain() {
         return oikeinpain;

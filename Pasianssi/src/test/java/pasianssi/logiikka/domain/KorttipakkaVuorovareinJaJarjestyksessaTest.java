@@ -29,24 +29,39 @@ public class KorttipakkaVuorovareinJaJarjestyksessaTest {
     }
 
     @Test
-    public void lisaaVuorovarisenJaJarjestyksessaSeuraavanKortinEhdolla() {
+    public void lisaaVuorovarisenJaJarjestyksessaSeuraavanKortin() {
         pakka.lisaaKorttiEhdolla(kortti2);
 
-        assertEquals(2, pakka.pakanKoko());
+        assertEquals(2, pakka.koko());
     }
 
     @Test
-    public void eiLisaaSamanvaristaKorttiaEhdolla() {
+    public void eiLisaaSamanvaristaKorttia() {
         pakka.lisaaKorttiEhdolla(kortti3);
 
-        assertEquals(1, pakka.pakanKoko());
+        assertEquals(1, pakka.koko());
     }
 
     @Test
-    public void eiLisaaVaaranArvoistaKorttiaEhdolla() {
+    public void eiLisaaVaaranArvoistaKorttia() {
         pakka.lisaaKorttiEhdolla(kortti4);
 
-        assertEquals(1, pakka.pakanKoko());
+        assertEquals(1, pakka.koko());
+    }
+    
+    @Test
+    public void lisaaKuninkaanJosPakkaTyhja() {
+        pakka.listaKorteista().clear();
+        pakka.lisaaKorttiEhdolla(new Kortti(Maa.PATA, 13));
+        
+        assertEquals(1, pakka.koko());
+    }
+    
+    @Test
+    public void eiLisaaKuningastaJosPakkaEiTyhja() {
+        pakka.lisaaKorttiEhdolla(new Kortti(Maa.HERTTA, 13));
+        
+        assertEquals(1, pakka.koko());
     }
 
     @Test

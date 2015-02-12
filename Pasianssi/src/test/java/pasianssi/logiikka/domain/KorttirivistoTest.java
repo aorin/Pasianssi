@@ -23,7 +23,7 @@ public class KorttirivistoTest {
         korttirivi.lisaaKortti(kortti1);
         korttirivi.lisaaKortti(kortti2);
         
-        korttirivisto.lisaaRivi(korttirivi);
+        korttirivisto.lisaaPakka(korttirivi);
     }
     
     @Test
@@ -33,9 +33,9 @@ public class KorttirivistoTest {
     
     @Test
     public void palauttaaOikeanKoon() {
-        korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
-        korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
-        korttirivisto.lisaaRivi(new KorttipakkaVuoroVareinJaJarjestyksessa());
+        korttirivisto.lisaaPakka(new KorttipakkaVuoroVareinJaJarjestyksessa());
+        korttirivisto.lisaaPakka(new KorttipakkaVuoroVareinJaJarjestyksessa());
+        korttirivisto.lisaaPakka(new KorttipakkaVuoroVareinJaJarjestyksessa());
         
         assertEquals(4, korttirivisto.koko());
     }

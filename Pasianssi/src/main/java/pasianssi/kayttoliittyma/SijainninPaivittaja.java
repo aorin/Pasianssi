@@ -1,5 +1,6 @@
 package pasianssi.kayttoliittyma;
 
+import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 import pasianssi.logiikka.domain.Kortti;
@@ -20,6 +21,14 @@ public class SijainninPaivittaja {
 
     public SijainninPaivittaja(Pelialusta alusta) {
         this.alusta = alusta;
+        
+        asetaSijaintiMuuttujat();
+        
+        leveys = KuvanAntaja.kortinLeveys;
+        korkeus = KuvanAntaja.kortinKorkeus;
+    }
+
+    private void asetaSijaintiMuuttujat() {
         korttirivistoX = 10;
         korttirivistoY = 10;
         tavoiterivistoX = 400;
@@ -27,8 +36,6 @@ public class SijainninPaivittaja {
         pakkojenValiRivistossa = 10;
         korttipakkaX = 10;
         korttipakkaY = 480;
-        leveys = KuvanAntaja.kortinLeveys;
-        korkeus = KuvanAntaja.kortinKorkeus;
     }
 
     public void asetaKaikkienKorttienSijainti() {
@@ -105,8 +112,8 @@ public class SijainninPaivittaja {
     private void lisaaPakanAlue(List<TapahtumaAlue> alueet, Korttipakka pakka) {
         Kortti kortti;
 
-        if (pakka.pakanKoko() != 0) {
-            kortti = pakka.haeViimeinenKortti();
+        if (pakka.koko() != 0) {
+            kortti = pakka.haePaallimmainenKortti();
         } else {
             kortti = null;
         }
@@ -128,11 +135,11 @@ public class SijainninPaivittaja {
         for (int i = 0; i < rivisto.koko(); i++) {
             Korttipakka pakka = rivisto.haePakka(i);
 
-            if (pakka.pakanKoko() == 0) {
+            if (pakka.koko() == 0) {
                 continue;
             }
 
-            Kortti kortti = pakka.haeViimeinenKortti();
+            Kortti kortti = pakka.haePaallimmainenKortti();
             if (!kortti.oikeinPain()) {
                 alueet.add(new TapahtumaAlue(kortti.getX(), kortti.getY(), leveys, korkeus, pakka, kortti));
             }
@@ -162,10 +169,10 @@ public class SijainninPaivittaja {
             int x = pakka.getX();
             int y;
 
-            if (pakka.pakanKoko() == 0) {
+            if (pakka.koko() == 0) {
                 y = pakka.getY();
             } else {
-                y = pakka.haeViimeinenKortti().getY() + korttienValiRivistossa;
+                y = pakka.haePaallimmainenKortti().getY() + korttienValiRivistossa;
             }
 
             alueet.add(new TapahtumaAlue(x, y, leveys, korkeus, pakka, null));

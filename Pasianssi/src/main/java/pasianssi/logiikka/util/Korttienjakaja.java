@@ -12,7 +12,9 @@ public class Korttienjakaja {
     private Arpoja arpoja;
 
 /**
- * Konstruktori luo uuden pelialustan ja arpojan.  
+ * Konstruktorissa luokka saa itselleen pelialustan ja uuden arpojan.
+ * 
+ * @param pelialusta Tyhjä pelialusta.
  */
     public Korttienjakaja(Pelialusta pelialusta) {
         this.pelialusta = pelialusta;
@@ -60,7 +62,7 @@ public class Korttienjakaja {
                 korttirivi.lisaaKortti(arvottuKortti);
             }
             
-            pelialusta.getKorttirivisto().lisaaRivi(korttirivi);
+            pelialusta.getKorttirivisto().lisaaPakka(korttirivi);
             rivinKoko--;
         }
     }
@@ -69,7 +71,7 @@ public class Korttienjakaja {
         Korttirivisto tavoiterivi = pelialusta.getTavoiterivisto();
         
         for (int i = 0; i < 4; i++) {
-            tavoiterivi.lisaaRivi(new KorttipakkaMaittainJaJarjestyksessa());
+            tavoiterivi.lisaaPakka(new KorttipakkaMaittainJaJarjestyksessa());
         }
     }
 }

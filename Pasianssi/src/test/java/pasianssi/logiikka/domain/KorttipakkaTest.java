@@ -22,14 +22,21 @@ public class KorttipakkaTest {
     @Test
     public void lisaaYhdenKortin() {
         korttipakka.lisaaKortti(kortti1);
-        assertEquals(1, korttipakka.pakanKoko());
+        assertEquals(1, korttipakka.koko());
     }
     
     @Test
     public void lisaaKaksiKorttia() {
         korttipakka.lisaaKortti(kortti1);
         korttipakka.lisaaKortti(kortti2);
-        assertEquals(2, korttipakka.pakanKoko());
+        assertEquals(2, korttipakka.koko());
+    }
+    
+    @Test
+    public void asettaaKortilleSijainninLisayksenYhteydessa() {
+        korttipakka.lisaaKortti(kortti1);
+        
+        assertEquals(korttipakka, kortti1.getSijainti());
     }
     
     @Test
@@ -42,7 +49,22 @@ public class KorttipakkaTest {
     public void poistaaKortin() {
         korttipakka.lisaaKortti(kortti1);
         korttipakka.poistaKortti(kortti1);
-        assertEquals(0, korttipakka.pakanKoko());
+        assertEquals(0, korttipakka.koko());
+    }
+    
+    @Test
+    public void siirtaaKorttejaYhdellaEteenpain() {
+        korttipakka.lisaaKortti(kortti1);
+        korttipakka.lisaaKortti(kortti2);
+        korttipakka.siirryYhdellaEteenpain();
+        assertEquals(0, korttipakka.haeIndeksi(kortti2));
+    }
+    
+    @Test
+    public void hakeePaallimaisenKortin() {
+        korttipakka.lisaaKortti(kortti2);
+        korttipakka.lisaaKortti(kortti1);
+        assertEquals(kortti1, korttipakka.haePaallimmainenKortti());
     }
     
     @Test
@@ -64,5 +86,17 @@ public class KorttipakkaTest {
         korttipakka.lisaaKortti(kortti2);
         korttipakka.lisaaKortti(kortti1);
         assertEquals(1, korttipakka.haeIndeksi(kortti1));
+    }
+    
+    @Test
+    public void asettaaOikeanXArvon() {
+        korttipakka.setX(367);
+        assertEquals(367, korttipakka.getX());
+    }
+    
+    @Test
+    public void asettaaOikeanYArvon() {
+        korttipakka.setY(912); 
+        assertEquals(912, korttipakka.getY());
     }
 }

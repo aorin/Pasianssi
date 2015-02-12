@@ -32,7 +32,7 @@ public class ArpojaTest {
     public void arpooJonkunKortinPakasta() {
         Kortti kortti = arpoja.arvoKortti(pakka);
         pakka.poistaKortti(kortti);
-        assertEquals(2, pakka.pakanKoko());
+        assertEquals(2, pakka.koko());
     }
     
     @Test

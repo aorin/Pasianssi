@@ -32,7 +32,7 @@ public class KorttienjakajaTest {
 
     @Test
     public void pakassaLopuksi24korttia() {
-        assertEquals(24, pakka.pakanKoko());
+        assertEquals(24, pakka.koko());
     }
 
     @Test
@@ -56,7 +56,7 @@ public class KorttienjakajaTest {
     
     @Test
     public void rivistonViimeisessaRivissaOnYksiKortti() {
-        assertEquals(1, rivisto.haePakka(6).pakanKoko());
+        assertEquals(1, rivisto.haePakka(6).koko());
     }
     
     @Test

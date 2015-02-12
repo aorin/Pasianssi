@@ -37,7 +37,7 @@ public class TapahtumaAlue extends Rectangle {
         List<Kortti> kortit = new ArrayList<>();
 
         if (kortti != null && kortti.oikeinPain()) {
-            for (int i = pakka.haeIndeksi(kortti); i < pakka.pakanKoko(); i++) {
+            for (int i = pakka.haeIndeksi(kortti); i < pakka.koko(); i++) {
                 kortit.add(pakka.haeKortti(i));
             }
         }
