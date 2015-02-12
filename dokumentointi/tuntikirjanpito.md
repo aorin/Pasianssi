@@ -34,4 +34,7 @@
   * refaktoroitu varsinkin käyttöliittymän luokkia
 
 **10.2.2015, 2h**
-  *  muokattu SijainninPaivittaja ja HiirenKuuntelija luokkia
+  * muokattu SijainninPaivittaja ja HiirenKuuntelija luokkia
+
+**12.2.2015, 2h**
+  * lisätty testejä, javadocia ja sekvenssikaavioita
