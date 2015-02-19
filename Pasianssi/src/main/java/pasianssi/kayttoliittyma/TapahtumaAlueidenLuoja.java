@@ -1,86 +1,35 @@
 package pasianssi.kayttoliittyma;
 
-import java.awt.Frame;
 import java.util.ArrayList;
 import java.util.List;
 import pasianssi.logiikka.domain.Kortti;
 import pasianssi.logiikka.domain.Korttipakka;
-import pasianssi.logiikka.domain.KorttipakkaVuoroVareinJaJarjestyksessa;
 import pasianssi.logiikka.domain.Korttirivisto;
 import pasianssi.logiikka.domain.Pelialusta;
 
-public class SijainninPaivittaja {
+/**
+ * Luokka tarjoaa toiminnallisuuden tapahtuma-alueiden luomiseen.
+ */
+public class TapahtumaAlueidenLuoja {
 
     private Pelialusta alusta;
-    private int korttipakkaX, korttipakkaY;
-    private int korttirivistoX, korttirivistoY;
-    private int tavoiterivistoX, tavoiterivistoY;
-    public static final int korttienValiRivistossa = 20;
-    private int pakkojenValiRivistossa;
     private int leveys, korkeus;
 
-    public SijainninPaivittaja(Pelialusta alusta) {
+/**
+ * Konstruktori asettaa luokkalle pelialustan.
+ * 
+ * @param alusta Käytössä oleva pelialusta.
+ */
+    public TapahtumaAlueidenLuoja(Pelialusta alusta) {
         this.alusta = alusta;
-        
-        asetaSijaintiMuuttujat();
-        
-        leveys = KuvanAntaja.kortinLeveys;
-        korkeus = KuvanAntaja.kortinKorkeus;
+        this.leveys = KuvanAntaja.kortinLeveys;
+        this.korkeus = KuvanAntaja.kortinKorkeus;
     }
 
-    private void asetaSijaintiMuuttujat() {
-        korttirivistoX = 10;
-        korttirivistoY = 10;
-        tavoiterivistoX = 400;
-        tavoiterivistoY = 480;
-        pakkojenValiRivistossa = 10;
-        korttipakkaX = 10;
-        korttipakkaY = 480;
-    }
-
-    public void asetaKaikkienKorttienSijainti() {
-        asetaKorttipakanSijainti(alusta.getKorttipakka(), korttipakkaX, korttipakkaY);
-
-        asetaRivistonSijainti(alusta.getKorttirivisto(), korttirivistoX, korttirivistoY);
-
-        asetaRivistonSijainti(alusta.getTavoiterivisto(), tavoiterivistoX, tavoiterivistoY);
-    }
-
-    private void asetaRivistonSijainti(Korttirivisto rivisto, int x, int y) {
-        for (int i = 0; i < rivisto.koko(); i++) {
-            asetaKorttipakanSijainti(rivisto.haePakka(i), x, y);
-
-            x += leveys + pakkojenValiRivistossa;
-        }
-    }
-
-    private void asetaKorttipakanSijainti(Korttipakka pakka, int x, int y) {
-        pakka.setX(x);
-        pakka.setY(y);
-
-        for (Kortti kortti : pakka.listaKorteista()) {
-            kortti.setX(x);
-            kortti.setY(y);
-
-            if (pakka instanceof KorttipakkaVuoroVareinJaJarjestyksessa) {
-                y += korttienValiRivistossa;
-            }
-        }
-    }
-
-    public void paivitaKortinSijainti(Korttipakka pakka, Kortti kortti) {
-        if (pakka instanceof KorttipakkaVuoroVareinJaJarjestyksessa) {
-            kortti.setX(pakka.getX());
-
-            int kortinIndeksi = pakka.haeIndeksi(kortti);
-
-            kortti.setY(pakka.getY() + kortinIndeksi * korttienValiRivistossa);
-        } else {
-            kortti.setX(pakka.getX());
-            kortti.setY(pakka.getY());
-        }
-    }
-
+/**
+ * 
+ * @return 
+ */    
     public List<TapahtumaAlue> annaKlikatunTapahtumaAlueet() {
         List<TapahtumaAlue> alueet = new ArrayList<>();
 
@@ -172,7 +121,7 @@ public class SijainninPaivittaja {
             if (pakka.koko() == 0) {
                 y = pakka.getY();
             } else {
-                y = pakka.haePaallimmainenKortti().getY() + korttienValiRivistossa;
+                y = pakka.haePaallimmainenKortti().getY() + KorttienSijainninPaivittaja.korttienValiRivistossa;
             }
 
             alueet.add(new TapahtumaAlue(x, y, leveys, korkeus, pakka, null));

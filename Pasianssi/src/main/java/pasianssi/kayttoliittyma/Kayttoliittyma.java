@@ -14,8 +14,9 @@ public class Kayttoliittyma implements Runnable {
     private Pelialusta pelialusta;
 
 /**
- * Konstruktori asettaa käyttöliittymälle käytössä olevan pelialustan.
- * @param alusta Pelialusta.
+ * Konstruktori asettaa käyttöliittymälle pelialustan.
+ * 
+ * @param alusta Käytössä oleva pelialusta.
  */
     public Kayttoliittyma(Pelialusta alusta) {
         this.pelialusta = alusta;
@@ -38,7 +39,7 @@ public class Kayttoliittyma implements Runnable {
     private void luoKomponentit(Container container) {
         Piirtaja piirtoalusta = new Piirtaja(pelialusta);
         
-        SijainninPaivittaja paivittaja = new SijainninPaivittaja(pelialusta);
+        KorttienSijainninPaivittaja paivittaja = new KorttienSijainninPaivittaja(pelialusta);
         paivittaja.asetaKaikkienKorttienSijainti();
         lisaaKuuntelija(paivittaja, piirtoalusta);
  
@@ -46,7 +47,7 @@ public class Kayttoliittyma implements Runnable {
     }
     
         
-    private void lisaaKuuntelija(SijainninPaivittaja paivittaja, Piirtaja piirtaja) {
+    private void lisaaKuuntelija(KorttienSijainninPaivittaja paivittaja, Piirtaja piirtaja) {
         HiirenKuuntelija kuuntelija = new HiirenKuuntelija(piirtaja, pelialusta, paivittaja);
         piirtaja.addMouseListener(kuuntelija);
         piirtaja.addMouseMotionListener(kuuntelija);

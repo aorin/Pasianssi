@@ -15,13 +15,14 @@ import pasianssi.logiikka.domain.Pelialusta;
 public class HiirenKuuntelija extends MouseInputAdapter {
     private Pelialusta pelilauta;
     private Piirtaja piirtaja;
-    private SijainninPaivittaja paivittaja;
+    private KorttienSijainninPaivittaja paivittaja;
+    private TapahtumaAlueidenLuoja tapahtumaAlueidenLuoja;
     private List<TapahtumaAlue> tapahtumaAlueet;
     private List<Kortti> siirrettavat;
     private int tarttumaKohtaX, tarttumaKohtaY;
 
 /**
- * Konstukrodi asettaa luokalle piirtäjän, pelilaudan ja sijainnin päivittäjän
+ * Konstuktori asettaa luokalle piirtäjän, pelilaudan ja sijainnin päivittäjän
  * ja lisäksi luo uuden tyhjän listan edustamaan tällä hetkellä siirrossa
  * olevia kortteja.
  * 
@@ -30,20 +31,21 @@ public class HiirenKuuntelija extends MouseInputAdapter {
  * @param paivittaja Päivittäjä, joka päivittää korttien sijainnit ja
  * antaa oikeat tapahtuma-alueet.
  */
-    public HiirenKuuntelija(Piirtaja piirtaja, Pelialusta lauta, SijainninPaivittaja paivittaja) {
+    public HiirenKuuntelija(Piirtaja piirtaja, Pelialusta lauta, KorttienSijainninPaivittaja paivittaja) {
         this.pelilauta = lauta;
         this.piirtaja = piirtaja;
         this.paivittaja = paivittaja;
+        this.tapahtumaAlueidenLuoja = new TapahtumaAlueidenLuoja(lauta);
         this.siirrettavat = new ArrayList<>();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        tapahtumaAlueet = paivittaja.annaPainetunTapahtumaAlueet();
+        tapahtumaAlueet = tapahtumaAlueidenLuoja.annaPainetunTapahtumaAlueet();
         TapahtumaAlue alue = osuttuTapahtumaAlue(e);
 
         if (alue != null && siirrettavat.isEmpty()) {
-            siirrettavat = alue.alueenPaallaPainettu(e.getX(), e.getY());
+            siirrettavat = alue.alueenPaallaPainettu();
             
             if (siirrettavat.isEmpty()) {
                 return;
@@ -60,16 +62,16 @@ public class HiirenKuuntelija extends MouseInputAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        tapahtumaAlueet = paivittaja.annaIrtiPaastetynTapahtumaAlueet();
+        tapahtumaAlueet = tapahtumaAlueidenLuoja.annaIrtiPaastetynTapahtumaAlueet();
         TapahtumaAlue alue = osuttuTapahtumaAlue(e);
 
         if (alue != null && !siirrettavat.isEmpty()) {
-            alue.alueenPaallaPaastettyIrti(siirrettavat, e.getX(), e.getY());
+            alue.alueenPaallaPaastettyIrti(siirrettavat);
         }
 
         if (!siirrettavat.isEmpty()) {
             for (Kortti kortti : siirrettavat) {
-                paivittaja.paivitaKortinSijainti(kortti.getSijainti(), kortti);
+                paivittaja.paivitaKortinSijainti(kortti);
             }
         }
 
@@ -79,11 +81,11 @@ public class HiirenKuuntelija extends MouseInputAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        tapahtumaAlueet = paivittaja.annaKlikatunTapahtumaAlueet();
+        tapahtumaAlueet = tapahtumaAlueidenLuoja.annaKlikatunTapahtumaAlueet();
         TapahtumaAlue alue = osuttuTapahtumaAlue(e);
 
         if (alue != null) {
-            alue.alueeseenKlikattu(e.getX(), e.getY());
+            alue.alueeseenKlikattu();
         }
 
         piirtaja.repaint();
@@ -97,7 +99,7 @@ public class HiirenKuuntelija extends MouseInputAdapter {
                 kortti.setX(me.getX() + tarttumaKohtaX);
                 kortti.setY(me.getY() + tarttumaKohtaY + a);
 
-                a += SijainninPaivittaja.korttienValiRivistossa;
+                a += KorttienSijainninPaivittaja.korttienValiRivistossa;
             }
         }
 

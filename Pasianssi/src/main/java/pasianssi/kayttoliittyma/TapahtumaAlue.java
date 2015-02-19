@@ -7,21 +7,34 @@ import pasianssi.logiikka.domain.Kortti;
 import pasianssi.logiikka.domain.Korttipakka;
 
 /**
- * Luokka ohjaa korttipakka-oliota toimimaan käyttäjän hiiren avulla annettujen
- * ohjeiden mukaisesti.
+ * Luokka ohjaa kohdalla olevaa korttipakka ja kortti -oliota
+ * toimimaan annettujen ohjeiden mukaisesti.
  */
 public class TapahtumaAlue extends Rectangle {
 
     private Korttipakka pakka;
     private Kortti kortti;
-
+    
+/**
+ * Konstruktori asettaa alueelle sijainnin ja antaa kohdalla olevan kortin.
+ * 
+ * @param x Alueen x-koordinaatti.
+ * @param y Alueen y-koordinaatti.
+ * @param leveys Alueen leveys.
+ * @param korkeus Alueen korkeus.
+ * @param kortti Kohdalla oleva kortti.
+ */
     public TapahtumaAlue(int x, int y, int leveys, int korkeus, Korttipakka pakka, Kortti kortti) {
         super(x, y, leveys, korkeus);
         this.pakka = pakka;
         this.kortti = kortti;
     }
 
-    public void alueeseenKlikattu(int x, int y) {
+/**
+ * Metodi kääntää kortin oikeinpäin, jos kortti on väärinpäin, muulloin
+ * siirtää päällimmäisen kortin pakan pohjalle.
+ */    
+    public void alueeseenKlikattu() {
         if (kortti == null) {
             return;
         }
@@ -33,7 +46,12 @@ public class TapahtumaAlue extends Rectangle {
         }
     }
 
-    public List<Kortti> alueenPaallaPainettu(int x, int y) {
+/**
+ * Metodi antaa listan korteista, joita on mahdollista siirtää.
+ * 
+ * @return Lista siirrettävistä korteista.
+ */
+    public List<Kortti> alueenPaallaPainettu() {
         List<Kortti> kortit = new ArrayList<>();
 
         if (kortti != null && kortti.oikeinPain()) {
@@ -45,7 +63,13 @@ public class TapahtumaAlue extends Rectangle {
         return kortit;
     }
 
-    public void alueenPaallaPaastettyIrti(List<Kortti> siirrettava, int x, int y) {
+/**
+ * Metodi lisää siirrettävänä olevat kortit kohdalla olevaan korttipakkaan,
+ * jos mahdollista.
+ * 
+ * @param siirrettava Siirrettävänä olevat kortit.
+ */    
+    public void alueenPaallaPaastettyIrti(List<Kortti> siirrettava) {
         Korttipakka edellinenPakka = siirrettava.get(0).getSijainti();
         if (pakka.lisaaKorttiEhdolla(siirrettava.get(0))) {
             for (int i = 1; i < siirrettava.size(); i++) {

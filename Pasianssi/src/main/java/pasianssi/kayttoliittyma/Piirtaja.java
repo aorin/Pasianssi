@@ -17,6 +17,12 @@ public class Piirtaja extends JPanel {
     private Pelialusta pelialusta;
     private List<Kortti> siirrettavat;
 
+/**
+ * Konstrukori asettaa luokalle pelialustan ja luo uuden kuvanAntaja-olion
+ * ja listan siirrettäville korteille.
+ * 
+ * @param alusta Käytössä oleva pelialusta. 
+ */
     public Piirtaja(Pelialusta alusta) {
         super.setBackground(new Color(28, 63, 126));
 
@@ -48,16 +54,17 @@ public class Piirtaja extends JPanel {
 
     private void piirraKorttipakka(Graphics g, Korttipakka pakka) {
         piirraTyhjaNelio(g, pakka.getX(), pakka.getY());
-        
-        for (int i = 0; i < pakka.koko(); i++) {
+                for (int i = 0; i < pakka.koko(); i++) {
             piirraKortti(g, pakka.haeKortti(i));
         }
     }
 
     private void piirraKortti(Graphics g, Kortti kortti) {
         Image kuva = kuvanAntaja.annaKortilleKuva(kortti);
-
+        g.setColor(new Color(138, 20, 20));
+        
         g.drawImage(kuva, kortti.getX(), kortti.getY(), null);
+        g.drawRect(kortti.getX(), kortti.getY(), KuvanAntaja.kortinLeveys, KuvanAntaja.kortinKorkeus);
     }
     
     private void piirraListaKorteista(Graphics g, List<Kortti> kortit) {
