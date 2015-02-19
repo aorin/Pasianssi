@@ -1,10 +1,14 @@
-package pasianssi.kayttoliittyma;
+package pasianssi.kayttoliittyma.kuuntelijat;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.MouseInputAdapter;
+import pasianssi.kayttoliittyma.KorttienSijainninPaivittaja;
+import pasianssi.kayttoliittyma.Piirtaja;
+import pasianssi.kayttoliittyma.TapahtumaAlue;
+import pasianssi.kayttoliittyma.TapahtumaAlueidenLuoja;
 import pasianssi.logiikka.domain.Kortti;
 import pasianssi.logiikka.domain.Pelialusta;
 

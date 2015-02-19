@@ -38,3 +38,7 @@
 
 **12.2.2015, 2h**
   * lisätty testejä, javadocia ja sekvenssikaavioita
+
+**18.12.2015, 3h**
+  * lisätty sekvenssikaavio, refaktoroitu sijainninpäivittäjä-luokkaa, lisätty
+    käyttöliittymään valikko

@@ -22,6 +22,7 @@ public class TapahtumaAlue extends Rectangle {
  * @param y Alueen y-koordinaatti.
  * @param leveys Alueen leveys.
  * @param korkeus Alueen korkeus.
+ * @param pakka Kohdalla olevan pakka.
  * @param kortti Kohdalla oleva kortti.
  */
     public TapahtumaAlue(int x, int y, int leveys, int korkeus, Korttipakka pakka, Kortti kortti) {
