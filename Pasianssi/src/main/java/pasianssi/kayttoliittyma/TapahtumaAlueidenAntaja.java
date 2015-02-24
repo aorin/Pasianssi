@@ -32,7 +32,7 @@ public class TapahtumaAlueidenAntaja {
         if (pakka != null) {
             if (pakka.koko() != 0) {
                 Kortti kortti = pakka.haePaallimmainenKortti();
-                return new TapahtumaAlue(x, y, leveys, korkeus, pakka, kortti);
+                return new TapahtumaAlue(pakka, kortti);
             }
         }
         
@@ -56,7 +56,7 @@ public class TapahtumaAlueidenAntaja {
             kortti = pakka.haePaallimmainenKortti();
         }
         
-        return new TapahtumaAlue(x, y, leveys, korkeus, pakka, kortti);
+        return new TapahtumaAlue(pakka, kortti);
     }
     
     public TapahtumaAlue annaIrtiPaastetynTapahtumaAlue(int x, int y) {
@@ -65,7 +65,7 @@ public class TapahtumaAlueidenAntaja {
         if (pakka == null) {
             return null;
         }
-        return new TapahtumaAlue(x, y, leveys, korkeus, pakka, null);
+        return new TapahtumaAlue(pakka, null);
     }
     
     private Korttipakka kohdallaOlevaPakka(int x, int y) {

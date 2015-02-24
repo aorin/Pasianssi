@@ -1,32 +1,26 @@
 package pasianssi.kayttoliittyma;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 import pasianssi.logiikka.domain.Kortti;
 import pasianssi.logiikka.domain.Korttipakka;
 
 /**
- * Luokka ohjaa kohdalla olevaa korttipakka ja kortti -oliota toimimaan
+ * Luokka ohjaa korttipakka ja kortti -olioita toimimaan
  * annettujen ohjeiden mukaisesti.
  */
-public class TapahtumaAlue extends Rectangle {
+public class TapahtumaAlue {
 
     private Korttipakka pakka;
     private Kortti kortti;
 
     /**
-     * Konstruktori asettaa alueelle sijainnin ja antaa kohdalla olevan kortin.
+     * Konstruktori asettaa alueelle korttipakan ja kortin.
      *
-     * @param x Alueen x-koordinaatti.
-     * @param y Alueen y-koordinaatti.
-     * @param leveys Alueen leveys.
-     * @param korkeus Alueen korkeus.
      * @param pakka Kohdalla olevan pakka.
      * @param kortti Kohdalla oleva kortti.
      */
-    public TapahtumaAlue(int x, int y, int leveys, int korkeus, Korttipakka pakka, Kortti kortti) {
-        super(x, y, leveys, korkeus);
+    public TapahtumaAlue(Korttipakka pakka, Kortti kortti) {
         this.pakka = pakka;
         this.kortti = kortti;
     }
