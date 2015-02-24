@@ -42,3 +42,6 @@
 **18.12.2015, 3h**
   * lisätty sekvenssikaavio, refaktoroitu sijainninpäivittäjä-luokkaa, lisätty
     käyttöliittymään valikko
+
+**24.2.2015, 0.5h**
+  * refaktoroitu tapahtumaAlueidenAntaja-luokkaa
