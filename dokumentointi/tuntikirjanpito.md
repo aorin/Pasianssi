@@ -45,3 +45,6 @@
 
 **24.2.2015, 0.5h**
   * refaktoroitu tapahtumaAlueidenAntaja-luokkaa
+
+**26.2.2015, 2h**
+  * lisätty automaattinen korttien siirtäjä

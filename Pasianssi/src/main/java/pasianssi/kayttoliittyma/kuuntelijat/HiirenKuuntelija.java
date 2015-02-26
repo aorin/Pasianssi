@@ -21,7 +21,6 @@ public class HiirenKuuntelija extends MouseInputAdapter {
     private Piirtaja piirtaja;
     private KorttienSijainninPaivittaja paivittaja;
     private TapahtumaAlueidenAntaja tapahtumaAlueidenAntaja;
-    private List<TapahtumaAlue> tapahtumaAlueet;
     private List<Kortti> siirrettavat;
     private int tarttumaKohtaX, tarttumaKohtaY;
 
