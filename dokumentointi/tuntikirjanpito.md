@@ -48,3 +48,8 @@
 
 **26.2.2015, 2h**
   * lisätty automaattinen korttien siirtäjä
+
+**27.2.2015, 5**
+  * lisätty javadoc, testejä ja refaktoroitu
+  * jar-tiedoston luonti (tiedoston luomisessa oli ongelmia, jonka vuoksi myös
+    palautus myöhästyi hiukan)

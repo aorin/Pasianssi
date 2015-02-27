@@ -2,8 +2,8 @@ package pasianssi.kayttoliittyma;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import pasianssi.logiikka.domain.Kortti;
 
@@ -46,7 +46,7 @@ public class KuvanAntaja {
 
     private BufferedImage lueKuvatiedosto() {
         try {
-            File kuva = new File("./korttipohja.png");
+            InputStream kuva = this.getClass().getClassLoader().getResourceAsStream("kuvat/korttipohja.png");
             return ImageIO.read(kuva);
         } catch (IOException e) {
             System.out.println("Kuvatiedoston lukeminen ei onnistunut.");
