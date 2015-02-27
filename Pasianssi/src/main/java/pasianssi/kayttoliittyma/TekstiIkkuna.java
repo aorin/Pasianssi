@@ -17,7 +17,7 @@ public class TekstiIkkuna implements Runnable {
     private String teksti;
 
 /**
- * Konstrukori asettaa ikkunan tekstimuuttujaan halutun arvon.
+ * Konstruktori asettaa ikkunan tekstimuuttujaan halutun arvon.
  * 
  * @param teksti Teksti, joka näytetään ikkunassa. 
  */    

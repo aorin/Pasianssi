@@ -13,7 +13,7 @@ public class KorttipakkaVuoroVareinJaJarjestyksessa extends Korttipakka {
  * 
  * @param kortti Lisättävä kortti
  * 
- * @return Palauttaa totta, jos lisäys onnistui.
+ * @return Palauttaa true, jos lisäys onnistui.
  */    
     @Override
     public boolean lisaaKorttiEhdolla(Kortti kortti) {

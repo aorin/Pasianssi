@@ -22,7 +22,7 @@ public class AutomaattiSiirtaja {
 /**
  * Konstruktori asettaa siirtäjälle pelialustan, luo uuden 
  * tyhjän joukon korteille, joita ei siirretä ja luo uuden
- * tyhjän listan korteilla, jotka on viimeksi siirretty.
+ * tyhjän listan korteille, jotka on viimeksi siirretty.
  * 
  * @param alusta Käytettävänä oleva pelialusta.
  */    
