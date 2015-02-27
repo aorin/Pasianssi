@@ -63,7 +63,7 @@ public class Kayttoliittyma implements Runnable {
         uusiPeli.addActionListener(kuuntelija);
 
         KorttienAutomaattiSiirtaja siirtaja = new KorttienAutomaattiSiirtaja(this);
-        timer = new Timer(300, siirtaja);
+        timer = new Timer(1, siirtaja);
 
         KaynnistaSiirtajaNappulanKuuntelija kaynnistaSiirtajaKuuntelija = new KaynnistaSiirtajaNappulanKuuntelija(timer, this);
         kaynnistaSiirtaja.addActionListener(kaynnistaSiirtajaKuuntelija);
@@ -115,8 +115,8 @@ public class Kayttoliittyma implements Runnable {
  * Metodi avaa uuden ikkunan, jossa ilmoitetaan pelin voitosta.
  */    
     public void naytaVoittoIkkuna() {
-        TekstiIkkuna ikkuna = new TekstiIkkuna("     Voitit pelin! \\(^o^)/");
         timer.stop();
+        TekstiIkkuna ikkuna = new TekstiIkkuna("     Voitit pelin! \\(^o^)/");
         piirtaja.addMouseListener(hiirenkuuntelija);
         SwingUtilities.invokeLater(ikkuna);
     }
@@ -126,8 +126,8 @@ public class Kayttoliittyma implements Runnable {
  * siirtäjä ei pysty enään siirtämään mitään korttia.
  */
     public void naytaAutomaattiEiOsaaSiirtaaIkkuna() {
-        TekstiIkkuna ikkuna = new TekstiIkkuna("      Siirtäjä ei osaa siirtää enään mitään korttia. :(");
         timer.stop();
+        TekstiIkkuna ikkuna = new TekstiIkkuna("      Siirtäjä ei osaa siirtää enään mitään korttia. :(");
         piirtaja.addMouseListener(hiirenkuuntelija);
         SwingUtilities.invokeLater(ikkuna);
     }

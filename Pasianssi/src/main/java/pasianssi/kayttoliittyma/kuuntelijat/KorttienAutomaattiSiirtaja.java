@@ -19,6 +19,7 @@ public class KorttienAutomaattiSiirtaja implements ActionListener {
     private Pelialusta alusta;
     private KorttienSijainninPaivittaja paivittaja;
     private AutomaattiSiirtaja siirtaja;
+    private boolean kaynnissa;
 
 /**
  * Konstruktori lisää oliolle käyttöliittymän, pelialustan, sijainnin päivittäjän
