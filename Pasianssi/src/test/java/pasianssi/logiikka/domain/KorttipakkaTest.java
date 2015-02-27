@@ -8,10 +8,7 @@ public class KorttipakkaTest {
 
     private Korttipakka korttipakka;
     private Kortti kortti1, kortti2;
-
-    public KorttipakkaTest() {
-    }
-
+    
     @Before
     public void setUp() {
         korttipakka = new Korttipakka();
@@ -57,7 +54,30 @@ public class KorttipakkaTest {
         korttipakka.lisaaKortti(kortti1);
         korttipakka.lisaaKortti(kortti2);
         korttipakka.siirryYhdellaEteenpain();
+        
         assertEquals(0, korttipakka.haeIndeksi(kortti2));
+    }
+    
+    @Test
+    public void korttipakanKokoPysyySamanaKunSiirrytaanYhdellaEteenpain() {
+        korttipakka.lisaaKortti(kortti1);
+        korttipakka.lisaaKortti(kortti2);
+        korttipakka.lisaaKortti(new Kortti(Maa.RUUTU, 7));
+        
+        korttipakka.siirryYhdellaEteenpain();
+        
+        assertEquals(3, korttipakka.koko());
+    }
+    
+    @Test
+    public void kaantaaPohjalleLaitetunKortinVaarinPain() {
+        korttipakka.lisaaKortti(kortti1);
+        korttipakka.lisaaKortti(kortti2);
+        
+        kortti2.kaannaKorttiOikeinpain();
+        korttipakka.siirryYhdellaEteenpain();
+        
+        assertTrue(!kortti2.oikeinPain());
     }
     
     @Test

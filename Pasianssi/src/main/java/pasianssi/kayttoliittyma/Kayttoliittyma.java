@@ -9,14 +9,11 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
-import pasianssi.kayttoliittyma.kuuntelijat.KorttienAutomaattiSiirtaja;
-import pasianssi.kayttoliittyma.kuuntelijat.KaynnistaSiirtajaNappulanKuuntelija;
-import pasianssi.kayttoliittyma.kuuntelijat.PysaytaSiirtajaNappulanKuuntelija;
-import pasianssi.kayttoliittyma.kuuntelijat.UusiPeliNappulanKuuntelija;
+import pasianssi.kayttoliittyma.kuuntelijat.*;
 import pasianssi.logiikka.domain.Pelialusta;
 
 /**
- * Luokka ohjaa käyttöliittymän toimintaa.
+ * Luokka luo käyttöliittymäikkunan ja ohjaa sen toimintaa.
  */
 public class Kayttoliittyma implements Runnable {
     private JFrame frame;
@@ -70,7 +67,6 @@ public class Kayttoliittyma implements Runnable {
 
         KaynnistaSiirtajaNappulanKuuntelija kaynnistaSiirtajaKuuntelija = new KaynnistaSiirtajaNappulanKuuntelija(timer, this);
         kaynnistaSiirtaja.addActionListener(kaynnistaSiirtajaKuuntelija);
-        siirtaja.lisaaAjastaja(kaynnistaSiirtajaKuuntelija);
         
         PysaytaSiirtajaNappulanKuuntelija pysaytaSiirtajaKuuntelija = new PysaytaSiirtajaNappulanKuuntelija(timer, this);
         pysaytaSiirtaja.addActionListener(pysaytaSiirtajaKuuntelija);
@@ -96,6 +92,12 @@ public class Kayttoliittyma implements Runnable {
         return frame;
     }
 
+/**
+ * Metodi päivittää käyttöliittymän vastaamaan metodina annettua
+ * pelialustaa.
+ * 
+ * @param alusta Uusi käytössä oleva pelialusta. 
+ */    
     public void paivita(Pelialusta alusta) {
         this.pelialusta = alusta;
         Container c = frame.getContentPane();
@@ -109,13 +111,20 @@ public class Kayttoliittyma implements Runnable {
         frame.setVisible(true);
     }
     
+/**
+ * Metodi avaa uuden ikkunan, jossa ilmoitetaan pelin voitosta.
+ */    
     public void naytaVoittoIkkuna() {
         TekstiIkkuna ikkuna = new TekstiIkkuna("     Voitit pelin! \\(^o^)/");
         timer.stop();
         piirtaja.addMouseListener(hiirenkuuntelija);
         SwingUtilities.invokeLater(ikkuna);
     }
-    
+
+/**
+ * Metodi avaa uuden ikkunan, jossa ilmoitetaan, että automaattinen
+ * siirtäjä ei pysty enään siirtämään mitään korttia.
+ */
     public void naytaAutomaattiEiOsaaSiirtaaIkkuna() {
         TekstiIkkuna ikkuna = new TekstiIkkuna("      Siirtäjä ei osaa siirtää enään mitään korttia. :(");
         timer.stop();

@@ -50,6 +50,15 @@ public class KorttipakkaVuorovareinJaJarjestyksessaTest {
     }
     
     @Test
+    public void eiLisaaKorttiaJosEdellinenOnVaarinpain() {
+        kortti1.kaannaKorttiVaarinpain();
+        
+        pakka.lisaaKorttiEhdolla(kortti2);
+
+        assertEquals(1, pakka.koko());
+    }
+    
+    @Test
     public void lisaaKuninkaanJosPakkaTyhja() {
         pakka.listaKorteista().clear();
         pakka.lisaaKorttiEhdolla(new Kortti(Maa.PATA, 13));

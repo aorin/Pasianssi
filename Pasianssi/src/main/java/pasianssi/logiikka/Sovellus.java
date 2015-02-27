@@ -1,11 +1,11 @@
 package pasianssi.logiikka;
 
-import pasianssi.logiikka.domain.Korttirivisto;
 import pasianssi.logiikka.domain.Pelialusta;
 import pasianssi.logiikka.util.Korttienjakaja;
 
 /** 
- * Luokka luo uuden pelialustan ja jakaa kortit korttienjakajan avulla.
+ * Luokka luo uuden pelialustan ja korttienjakajan, jonka avulla
+ * se pystyy jakamaan kortit.
  * 
  * @see pasianssi.logiikka.util.Korttienjakaja
  */

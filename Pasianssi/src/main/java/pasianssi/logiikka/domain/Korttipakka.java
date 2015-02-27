@@ -106,7 +106,7 @@ public class Korttipakka {
         return korttipakka.indexOf(kortti);
     }
 /**
- * Hakee listan pakassa olevista korteista.
+ * Metodi hakee listan pakassa olevista korteista.
  * 
  * @return Lista pakassa olevista korteista. 
  */

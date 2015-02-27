@@ -14,6 +14,10 @@ public class KorttienSijainninPaivittaja {
     private int korttipakkaX, korttipakkaY;
     private int korttirivistoX, korttirivistoY;
     private int tavoiterivistoX, tavoiterivistoY;
+/**
+ * {@value #korttienValiRivistossa} Muuttuja kertoo korttirivistöjen välissä
+ * olevan tyhjän tilan pituuden.
+ */
     public static final int korttienValiRivistossa = 25;
     private int pakkojenValiRivistossa;
     private int leveys, korkeus;

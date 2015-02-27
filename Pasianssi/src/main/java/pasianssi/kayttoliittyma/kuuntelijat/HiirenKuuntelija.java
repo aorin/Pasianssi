@@ -26,11 +26,13 @@ public class HiirenKuuntelija extends MouseInputAdapter {
     private int tarttumaKohtaX, tarttumaKohtaY;
 
     /**
-     * Konstuktori asettaa luokalle piirtÃ¤jÃ¤n, pelilaudan ja sijainnin
-     * pÃ¤ivittÃ¤jÃ¤n ja lisÃ¤ksi luo uuden tyhjÃ¤n listan edustamaan tÃ¤llÃ¤ hetkellÃ¤
-     * siirrossa olevia kortteja.
-     *
-     * @param kayttoliittyma
+     * Konstruktori asettaa kuuntelijalle annetun käyttöliittymän perusteella
+     * pelilaudan, piirtäjän ja sijainnin päivittäjän.
+     * <p>
+     * Lisäksi konstruktori luo uuden tapahtumaAlueidenPaivittaja-olion ja
+     * luo tyhjän listan siirrossa oleville korteille.
+     * 
+     * @param kayttoliittyma Käytössä oleva käyttöliittymä.
      */
     public HiirenKuuntelija(Kayttoliittyma kayttoliittyma) {
         this.kayttoliittyma = kayttoliittyma;

@@ -1,8 +1,9 @@
 package pasianssi.logiikka.util;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import pasianssi.kayttoliittyma.KorttienSijainninPaivittaja;
 import pasianssi.logiikka.domain.Kortti;
 import pasianssi.logiikka.domain.Korttipakka;
 import pasianssi.logiikka.domain.Korttirivisto;
@@ -10,55 +11,63 @@ import pasianssi.logiikka.domain.Pelialusta;
 
 /**
  * Luokka tarjoaa toiminnallisuuden korttien siirtämiseen automaattisesti
- * pakoista toiseen.
+ * pakoista toiseen niin, että tavoitteena on saada kaikki kortit tavoitepakkoihin.
  */
 public class AutomaattiSiirtaja {
     private Pelialusta alusta;
-    private KorttienSijainninPaivittaja paivittaja;
     private Set<Kortti> sijainnit;
     private Kortti ensimmainenKorttipakanKortti;
+    private List<Kortti> siirretytKortit;
 
 /**
- * Konstruktori asettaa siirtäjälle pelialustan, päivittäjän ja luo uuden 
- * tyhjän joukon korteille, joita ei siirretä.
- * @param alusta
- * @param paivittaja 
+ * Konstruktori asettaa siirtäjälle pelialustan, luo uuden 
+ * tyhjän joukon korteille, joita ei siirretä ja luo uuden
+ * tyhjän listan korteilla, jotka on viimeksi siirretty.
+ * 
+ * @param alusta Käytettävänä oleva pelialusta.
  */    
-    public AutomaattiSiirtaja(Pelialusta alusta, KorttienSijainninPaivittaja paivittaja) {
+    public AutomaattiSiirtaja(Pelialusta alusta) {
         this.alusta = alusta;
-        this.paivittaja = paivittaja;
         this.sijainnit = new HashSet<>();
+        this.siirretytKortit = new ArrayList<>();
     }
 
-    public boolean siirraKortti() {
-        if (siirraRivistostaTavoitepakkaan()) {
+/**
+ * Metodi kääntää yhden kortin oikeinpäin tai siirtää kortin korttipakasta
+ * toiseen.
+ * <p>
+ * Jos siirrettävä kortti ei ole pakan päällimmäinen kortti, siirrettään
+ * samalla kaikki kortin päällä olevat kortit.
+ * 
+ * @return Palauttaa listan korteista, joita on siirretty. 
+ */    
+    public List<Kortti> siirraKortti() {
+        siirretytKortit.clear();
+        
+        siirraRivistostaTavoitepakkaan();
+
+        if (siirretytKortit.isEmpty()) {
+            siirraRivistostaToiseen();
+        }
+
+        if (siirretytKortit.isEmpty()) {
+            siirraPakastaTavoiterivistoon();
+        }
+
+        if (siirretytKortit.isEmpty()) {
+            siirraPakastaRivistoon();
+        }
+
+        if (siirretytKortit.isEmpty()) {
+            kayPakkaaLapi();
+        } else {
             ensimmainenKorttipakanKortti = null;
-            return true;
         }
 
-        if (siirraRivistostaToiseen()) {
-            ensimmainenKorttipakanKortti = null;
-            return true;
-        }
-
-        if (siirraPakastaTavoiterivistoon()) {
-            ensimmainenKorttipakanKortti = null;
-            return true;
-        }
-
-        if (siirraPakastaRivistoon()) {
-            ensimmainenKorttipakanKortti = null;
-            return true;
-        }
-
-        if (kayPakkaaLapi()) {
-            return true;
-        }
-
-        return false;
+        return siirretytKortit;
     }
 
-    private boolean siirraRivistostaTavoitepakkaan() {
+    private void siirraRivistostaTavoitepakkaan() {
         Korttirivisto rivisto = alusta.getKorttirivisto();
 
         for (int i = 0; i < rivisto.koko(); i++) {
@@ -71,18 +80,18 @@ public class AutomaattiSiirtaja {
             Kortti kortti = pakka.haePaallimmainenKortti();
 
             if (kaannaKortti(kortti)) {
-                return true;
+                siirretytKortit.add(kortti);
+                return;
             }
 
             if (lisaaRivistoon(kortti, alusta.getTavoiterivisto())) {
-                return true;
+                siirretytKortit.add(kortti);
+                return;
             }
         }
-
-        return false;
     }
 
-    private boolean siirraRivistostaToiseen() {
+    private void siirraRivistostaToiseen() {
         Korttirivisto rivisto = alusta.getKorttirivisto();
 
         for (int i = 0; i < rivisto.koko(); i++) {
@@ -96,42 +105,52 @@ public class AutomaattiSiirtaja {
                 }
 
                 if (kortti.oikeinPain() && lisaaRivistoon(kortti, rivisto)) {
+                    siirretytKortit.add(kortti);
                     int kertoja = pakka.koko() - j;
 
                     for (int k = 0; k < kertoja; k++) {
-                        lisaaRivistoon(pakka.haeKortti(j), rivisto);
+                        Kortti seuraavaKortti = pakka.haeKortti(j);
+                        lisaaRivistoon(seuraavaKortti, rivisto);
+                        siirretytKortit.add(seuraavaKortti);
                     }
 
                     if (pakka.koko() != 0 && pakka.haePaallimmainenKortti().getArvo() == kortti.getArvo() + 1) {
                         sijainnit.add(kortti);
                     }
-                    return true;
+                    return;
                 }
             }
         }
-
-        return false;
     }
 
-    private boolean siirraPakastaTavoiterivistoon() {
+    private void siirraPakastaTavoiterivistoon() {
         Korttipakka pakka = alusta.getKorttipakka();
         if (pakka.koko() == 0) {
-            return false;
+            return;
         }
 
         Kortti kortti = pakka.haePaallimmainenKortti();
-
-        return kaannaKortti(kortti) || lisaaRivistoon(kortti, alusta.getTavoiterivisto());
+        
+        if (kaannaKortti(kortti)) {
+            siirretytKortit.add(kortti);
+            return;
+        }
+        
+        if (lisaaRivistoon(kortti, alusta.getTavoiterivisto())) {
+            siirretytKortit.add(kortti);
+        }
     }
 
-    private boolean siirraPakastaRivistoon() {
+    private void siirraPakastaRivistoon() {
         Korttipakka pakka = alusta.getKorttipakka();
         if (pakka.koko() == 0) {
-            return false;
+            return;
         }
         Kortti kortti = pakka.haePaallimmainenKortti();
 
-        return lisaaRivistoon(kortti, alusta.getKorttirivisto());
+        if(lisaaRivistoon(kortti, alusta.getKorttirivisto())) {
+            siirretytKortit.add(kortti);
+        }
     }
 
     private boolean lisaaRivistoon(Kortti kortti, Korttirivisto rivisto) {
@@ -142,7 +161,6 @@ public class AutomaattiSiirtaja {
 
             if (rivisto.haePakka(i).lisaaKorttiEhdolla(kortti)) {
                 sijainti.poistaKortti(kortti);
-                paivittaja.paivitaKortinSijainti(kortti);
                 return true;
             }
         }
@@ -159,21 +177,21 @@ public class AutomaattiSiirtaja {
         return false;
     }
 
-    private boolean kayPakkaaLapi() {
+    private void kayPakkaaLapi() {
         Korttipakka pakka = alusta.getKorttipakka();
 
         if (pakka.koko() < 2) {
-            return false;
+            return;
         }
 
         Kortti paallimmainenKortti = pakka.haePaallimmainenKortti();
         if (paallimmainenKortti.equals(ensimmainenKorttipakanKortti)) {
-            return false;
+            return;
         } else if (ensimmainenKorttipakanKortti == null) {
             ensimmainenKorttipakanKortti = paallimmainenKortti;
         }
         
         pakka.siirryYhdellaEteenpain();
-        return true;
+        siirretytKortit.add(paallimmainenKortti);
     }
 }

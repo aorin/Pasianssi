@@ -1,4 +1,6 @@
-# Pasianssi-projekti
+# Pasianssi
+
+Ohjelmoinnin harjoitustyö 2015
 
 \\(^o^)/
 

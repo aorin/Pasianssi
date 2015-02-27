@@ -8,3 +8,9 @@
   * korttien siirtäminen pelilaudalla
   * korttipakan läpikäyminen
   
+**Rakennekuvaus:**
+Sovellukseen kuuluu yksi korttienjakaja ja yksi pelilauta. Pelilauta koostuu
+yhdestä tavallisesta korttipakasta ja kahdesta korttirivistöstä. Korttirivistöt
+koostuvat 4-7 korttipakasta. Korttipakkoja on tavallisten korttipakkojen lisäksi maittan ja järjestyksessä olevat korttipakat ja vuorovärein ja järjestyksessä olevat korttipakat. Kaikki korttipakat koostuvat korteista. 
+Yhteen pelilautaan voi kuulua yksi automaattinen korttien siirtäjä ja automaattisella siirtäjällä voi olla vain yksi pelilauta. 
+

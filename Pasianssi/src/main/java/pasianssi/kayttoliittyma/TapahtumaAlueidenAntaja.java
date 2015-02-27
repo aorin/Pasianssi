@@ -26,6 +26,13 @@ public class TapahtumaAlueidenAntaja {
         this.pakat = alusta.kaikkiKorttipakat();
     }
 
+/**
+ * Metodi antaa oikean tapahtuma-alueen, kun alueeseen on klikattu.
+ * 
+ * @param x Klikatun kohdan x-koordinaatti.
+ * @param y Klikatun kohdan y-koordinaatti.
+ * @return Kohdalla oleva tapahtuma-alue. 
+ */    
     public TapahtumaAlue annaKlikatunTapahtumaAlue(int x, int y) {
         Korttipakka pakka = kohdallaOlevaPakka(x, y);
         
@@ -39,6 +46,13 @@ public class TapahtumaAlueidenAntaja {
         return null;
     }
     
+/**
+ * Metodi antaa oikean tapahtuma-alueen, kun alueeseen on painettu.
+ * 
+ * @param x Painetun kohdan x-koordinaatti.
+ * @param y Painetun kohdan y-koordinaatti.
+ * @return Kohdalla oleva tapahtuma-alue. 
+ */ 
     public TapahtumaAlue annaPainetunTapahtumaAlue(int x, int y) {
         Korttipakka pakka = kohdallaOlevaPakka(x, y);
         
@@ -58,7 +72,14 @@ public class TapahtumaAlueidenAntaja {
         
         return new TapahtumaAlue(pakka, kortti);
     }
-    
+  
+ /**
+ * Metodi antaa oikean tapahtuma-alueen, kun alueen päällä on päästetty irti.
+ * 
+ * @param x Sen kohdan x-koordinatti, jossa on päästetty irti.
+ * @param y Sen kohdan y-koordinaatti, jossa on päästetty irti.
+ * @return Kohdalla oleva tapahtuma-alue. 
+ */ 
     public TapahtumaAlue annaIrtiPaastetynTapahtumaAlue(int x, int y) {
         Korttipakka pakka = kohdallaOlevaPakka(x, y);
         

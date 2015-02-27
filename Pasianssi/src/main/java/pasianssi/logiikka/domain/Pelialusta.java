@@ -20,6 +20,11 @@ public class Pelialusta {
         this.tavoiterivisto = new Korttirivisto();
     }
     
+/**
+ * Metodi palauttaa kaikki pelialustan sisältämät korttipakat.
+ * 
+ * @return Lista kaikista korttipakoista. 
+ */    
     public List<Korttipakka> kaikkiKorttipakat() {
         List<Korttipakka> pakat = new ArrayList<>();
         
@@ -35,7 +40,12 @@ public class Pelialusta {
         
         return pakat;
     }
-    
+  
+/**
+ * Metodi kertoo, onko pakassa tai korttirivistössä kortteja.
+ * 
+ * @return Palauttaa false, jos pakassa tai korttirivistössä on kortteja, muulloin true.
+ */    
     public boolean pakassaTaiRivistossaEiKortteja() {
         if (korttipakka.koko() != 0) {
             return false;
