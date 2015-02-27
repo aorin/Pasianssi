@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 import pasianssi.kayttoliittyma.kuuntelijat.KorttienAutomaattiSiirtaja;
@@ -18,11 +19,12 @@ import pasianssi.logiikka.domain.Pelialusta;
  * Luokka ohjaa käyttöliittymän toimintaa.
  */
 public class Kayttoliittyma implements Runnable {
-
     private JFrame frame;
     private Pelialusta pelialusta;
     private Piirtaja piirtaja;
     private KorttienSijainninPaivittaja paivittaja;
+    private HiirenKuuntelija hiirenkuuntelija;
+    private Timer timer;
 
     /**
      * Konstruktori asettaa käyttöliittymälle pelialustan.
@@ -44,6 +46,7 @@ public class Kayttoliittyma implements Runnable {
         luoValikko();
 
         frame.pack();
+        frame.setResizable(false);
         frame.setVisible(true);
     }
 
@@ -63,12 +66,13 @@ public class Kayttoliittyma implements Runnable {
         uusiPeli.addActionListener(kuuntelija);
 
         KorttienAutomaattiSiirtaja siirtaja = new KorttienAutomaattiSiirtaja(this);
-        Timer timer = new Timer(1000, siirtaja);
+        timer = new Timer(300, siirtaja);
 
-        KaynnistaSiirtajaNappulanKuuntelija kaynnistaSiirtajaKuuntelija = new KaynnistaSiirtajaNappulanKuuntelija(timer);
+        KaynnistaSiirtajaNappulanKuuntelija kaynnistaSiirtajaKuuntelija = new KaynnistaSiirtajaNappulanKuuntelija(timer, this);
         kaynnistaSiirtaja.addActionListener(kaynnistaSiirtajaKuuntelija);
+        siirtaja.lisaaAjastaja(kaynnistaSiirtajaKuuntelija);
         
-        PysaytaSiirtajaNappulanKuuntelija pysaytaSiirtajaKuuntelija = new PysaytaSiirtajaNappulanKuuntelija(timer);
+        PysaytaSiirtajaNappulanKuuntelija pysaytaSiirtajaKuuntelija = new PysaytaSiirtajaNappulanKuuntelija(timer, this);
         pysaytaSiirtaja.addActionListener(pysaytaSiirtajaKuuntelija);
     }
 
@@ -83,9 +87,9 @@ public class Kayttoliittyma implements Runnable {
     }
 
     private void lisaaHiirenKuuntelija() {
-        HiirenKuuntelija kuuntelija = new HiirenKuuntelija(piirtaja, pelialusta, paivittaja);
-        piirtaja.addMouseListener(kuuntelija);
-        piirtaja.addMouseMotionListener(kuuntelija);
+        hiirenkuuntelija = new HiirenKuuntelija(this);
+        piirtaja.addMouseListener(hiirenkuuntelija);
+        piirtaja.addMouseMotionListener(hiirenkuuntelija);
     }
 
     public JFrame getFrame() {
@@ -104,6 +108,20 @@ public class Kayttoliittyma implements Runnable {
 
         frame.setVisible(true);
     }
+    
+    public void naytaVoittoIkkuna() {
+        TekstiIkkuna ikkuna = new TekstiIkkuna("     Voitit pelin! \\(^o^)/");
+        timer.stop();
+        piirtaja.addMouseListener(hiirenkuuntelija);
+        SwingUtilities.invokeLater(ikkuna);
+    }
+    
+    public void naytaAutomaattiEiOsaaSiirtaaIkkuna() {
+        TekstiIkkuna ikkuna = new TekstiIkkuna("      Siirtäjä ei osaa siirtää enään mitään korttia. :(");
+        timer.stop();
+        piirtaja.addMouseListener(hiirenkuuntelija);
+        SwingUtilities.invokeLater(ikkuna);
+    }
 
     public Pelialusta getPelialusta() {
         return pelialusta;
@@ -115,5 +133,9 @@ public class Kayttoliittyma implements Runnable {
 
     public KorttienSijainninPaivittaja getPaivittaja() {
         return paivittaja;
+    }
+
+    public HiirenKuuntelija getHiirenkuuntelija() {
+        return hiirenkuuntelija;
     }
 }

@@ -1,5 +1,6 @@
 package pasianssi.logiikka;
 
+import pasianssi.logiikka.domain.Korttirivisto;
 import pasianssi.logiikka.domain.Pelialusta;
 import pasianssi.logiikka.util.Korttienjakaja;
 

@@ -1,4 +1,4 @@
-package pasianssi.logiikka;
+package pasianssi.logiikka.util;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,12 +8,22 @@ import pasianssi.logiikka.domain.Korttipakka;
 import pasianssi.logiikka.domain.Korttirivisto;
 import pasianssi.logiikka.domain.Pelialusta;
 
+/**
+ * Luokka tarjoaa toiminnallisuuden korttien siirtämiseen automaattisesti
+ * pakoista toiseen.
+ */
 public class AutomaattiSiirtaja {
-
     private Pelialusta alusta;
     private KorttienSijainninPaivittaja paivittaja;
     private Set<Kortti> sijainnit;
+    private Kortti ensimmainenKorttipakanKortti;
 
+/**
+ * Konstruktori asettaa siirtäjälle pelialustan, päivittäjän ja luo uuden 
+ * tyhjän joukon korteille, joita ei siirretä.
+ * @param alusta
+ * @param paivittaja 
+ */    
     public AutomaattiSiirtaja(Pelialusta alusta, KorttienSijainninPaivittaja paivittaja) {
         this.alusta = alusta;
         this.paivittaja = paivittaja;
@@ -22,18 +32,22 @@ public class AutomaattiSiirtaja {
 
     public boolean siirraKortti() {
         if (siirraRivistostaTavoitepakkaan()) {
+            ensimmainenKorttipakanKortti = null;
             return true;
         }
 
         if (siirraRivistostaToiseen()) {
+            ensimmainenKorttipakanKortti = null;
             return true;
         }
 
         if (siirraPakastaTavoiterivistoon()) {
+            ensimmainenKorttipakanKortti = null;
             return true;
         }
 
         if (siirraPakastaRivistoon()) {
+            ensimmainenKorttipakanKortti = null;
             return true;
         }
 
@@ -148,10 +162,17 @@ public class AutomaattiSiirtaja {
     private boolean kayPakkaaLapi() {
         Korttipakka pakka = alusta.getKorttipakka();
 
-        if (pakka.koko() == 0) {
+        if (pakka.koko() < 2) {
             return false;
         }
 
+        Kortti paallimmainenKortti = pakka.haePaallimmainenKortti();
+        if (paallimmainenKortti.equals(ensimmainenKorttipakanKortti)) {
+            return false;
+        } else if (ensimmainenKorttipakanKortti == null) {
+            ensimmainenKorttipakanKortti = paallimmainenKortti;
+        }
+        
         pakka.siirryYhdellaEteenpain();
         return true;
     }

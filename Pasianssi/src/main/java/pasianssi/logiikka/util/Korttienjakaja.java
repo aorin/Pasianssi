@@ -9,17 +9,15 @@ import pasianssi.logiikka.domain.*;
 public class Korttienjakaja {
     private Pelialusta pelialusta;
     private Korttipakka korttipakka;
-    private Arpoja arpoja;
 
 /**
- * Konstruktorissa luokka saa itselleen pelialustan ja uuden arpojan.
+ * Konstruktorissa luokka saa itselleen pelialustan.
  * 
  * @param pelialusta Tyhjä pelialusta.
  */
     public Korttienjakaja(Pelialusta pelialusta) {
         this.pelialusta = pelialusta;
         this.korttipakka = pelialusta.getKorttipakka();
-        this.arpoja = new Arpoja();
     }
 
 /**
@@ -51,15 +49,15 @@ public class Korttienjakaja {
             KorttipakkaVuoroVareinJaJarjestyksessa korttirivi = new KorttipakkaVuoroVareinJaJarjestyksessa();
 
             for (int i = 1; i <= rivinKoko; i++) {
-                Kortti arvottuKortti = arpoja.arvoKortti(korttipakka);
+                Kortti kortti = korttipakka.haeKortti(0);
 
-                korttipakka.poistaKortti(arvottuKortti);
+                korttipakka.poistaKortti(kortti);
                 
                 if (i == rivinKoko) {
-                    arvottuKortti.kaannaKorttiOikeinpain();
+                    kortti.kaannaKorttiOikeinpain();
                 }
                 
-                korttirivi.lisaaKortti(arvottuKortti);
+                korttirivi.lisaaKortti(kortti);
             }
             
             pelialusta.getKorttirivisto().lisaaPakka(korttirivi);

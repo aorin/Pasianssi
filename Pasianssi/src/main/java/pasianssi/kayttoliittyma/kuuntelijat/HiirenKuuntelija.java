@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.event.MouseInputAdapter;
+import pasianssi.kayttoliittyma.Kayttoliittyma;
 import pasianssi.kayttoliittyma.KorttienSijainninPaivittaja;
 import pasianssi.kayttoliittyma.Piirtaja;
 import pasianssi.kayttoliittyma.TapahtumaAlue;
@@ -16,7 +17,7 @@ import pasianssi.logiikka.domain.Pelialusta;
  * toimintaa sen mukaan.
  */
 public class HiirenKuuntelija extends MouseInputAdapter {
-
+    private Kayttoliittyma kayttoliittyma;
     private Pelialusta pelilauta;
     private Piirtaja piirtaja;
     private KorttienSijainninPaivittaja paivittaja;
@@ -29,15 +30,14 @@ public class HiirenKuuntelija extends MouseInputAdapter {
      * pÃ¤ivittÃ¤jÃ¤n ja lisÃ¤ksi luo uuden tyhjÃ¤n listan edustamaan tÃ¤llÃ¤ hetkellÃ¤
      * siirrossa olevia kortteja.
      *
-     * @param piirtaja PiirtÃ¤jÃ¤, joka piirtÃ¤Ã¤ korttien kuvat.
-     * @param lauta Pelialusta.
-     * @param paivittaja PÃ¤ivittÃ¤jÃ¤, joka pÃ¤ivittÃ¤Ã¤ korttien sijainnit.
+     * @param kayttoliittyma
      */
-    public HiirenKuuntelija(Piirtaja piirtaja, Pelialusta lauta, KorttienSijainninPaivittaja paivittaja) {
-        this.pelilauta = lauta;
-        this.piirtaja = piirtaja;
-        this.paivittaja = paivittaja;
-        this.tapahtumaAlueidenAntaja = new TapahtumaAlueidenAntaja(lauta);
+    public HiirenKuuntelija(Kayttoliittyma kayttoliittyma) {
+        this.kayttoliittyma = kayttoliittyma;
+        this.pelilauta = kayttoliittyma.getPelialusta();
+        this.piirtaja = kayttoliittyma.getPiirtaja();
+        this.paivittaja = kayttoliittyma.getPaivittaja();
+        this.tapahtumaAlueidenAntaja = new TapahtumaAlueidenAntaja(pelilauta);
         this.siirrettavat = new ArrayList<>();
     }
 
@@ -72,6 +72,10 @@ public class HiirenKuuntelija extends MouseInputAdapter {
         if (!siirrettavat.isEmpty()) {
             for (Kortti kortti : siirrettavat) {
                 paivittaja.paivitaKortinSijainti(kortti);
+            }
+            
+            if (pelilauta.pakassaTaiRivistossaEiKortteja()) {
+                kayttoliittyma.naytaVoittoIkkuna();
             }
         }
 

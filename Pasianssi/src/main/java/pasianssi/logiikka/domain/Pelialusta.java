@@ -35,6 +35,20 @@ public class Pelialusta {
         
         return pakat;
     }
+    
+    public boolean pakassaTaiRivistossaEiKortteja() {
+        if (korttipakka.koko() != 0) {
+            return false;
+        }
+        
+        for (int i = 0; i < korttirivisto.koko(); i++) {
+            if (korttirivisto.haePakka(i).koko() != 0) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 
     public Korttirivisto getKorttirivisto() {
         return korttirivisto;
